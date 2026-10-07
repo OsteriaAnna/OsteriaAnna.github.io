@@ -1,0 +1,26 @@
+/* Nunito Sans regolato su Avenir LT 35 Light — prova del font, terzo giro (2026-10-02), approvato da Gabriele con wght 300.
+   Un solo punto di regolazione: questa @font-face e la regola .font-testo. Grassetto e corsivo li sintetizza il browser,
+   come fa Wix con Avenir (che carica solo il taglio Light normale). Il font si carica dal sito, non dai server di Google.
+   Testi con una spaziatura propria (es. bottoni, 0.1em): letter-spacing: calc(0.1em + var(--testo-ls)). */
+@font-face {
+  font-family: "Nunito Sans Osteria";
+  src: url("../fonts/nunito-sans-latin-full-normal.woff2") format("woff2-variations");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  ascent-override: 102.13%;
+  descent-override: 33.88%;
+  line-gap-override: 0%;
+}
+:root {
+  --font-testo: "Nunito Sans Osteria", sans-serif;
+  --testo-ls: 0em;
+  --testo-ws: 0em;
+}
+.font-testo {
+  font-family: var(--font-testo);
+  font-optical-sizing: none;
+  font-variation-settings: "wght" 300, "wdth" 101.75, "YTLC" 464, "opsz" 12;
+  letter-spacing: var(--testo-ls);
+  word-spacing: var(--testo-ws);
+}

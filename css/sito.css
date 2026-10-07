@@ -1,0 +1,594 @@
+/* Osteria da Anna — copia fedele del sito Wix (passo 2.3 del fronte 3).
+   Valori misurati sul sito online (DESIGN-BRIEF.md e _lavoro-copia/estratti/).
+   Computer: griglia fissa da 980 px centrata, come Wix.
+   Telefono (fino a 767 px): impaginazione Wix da 320 px, ingrandita dal <meta viewport width=320>. */
+
+/* ---------- Font (dal sito, mai dai server di Google) ---------- */
+@font-face { font-family: "Fahkwang"; src: url("../fonts/fahkwang-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fahkwang"; src: url("../fonts/fahkwang-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Fahkwang"; src: url("../fonts/fahkwang-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Fahkwang"; src: url("../fonts/fahkwang-latin-700-italic.woff2") format("woff2"); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-latin-300-normal.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+
+/* ---------- Colori (DESIGN-BRIEF §3) ---------- */
+:root {
+  --blu: #0B2B5A;
+  --bianco: #FFFFFF;
+  --ruggine: #B85423;
+  --blu-hover: #486083;
+  --grigio-linea: #8595AD;
+  --grigio-copyright-tel: #C2CAD6;
+  --nero: #000000;
+  --blu-icona-hover: #0B2F5B;
+  --arancio-play: #ED5829;
+  --comparsa: 1200ms cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+/* ---------- Base ---------- */
+html, body { margin: 0; padding: 0; }
+body { background: var(--bianco); min-width: 980px; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+h1, h2, h3, p, ul { margin: 0; padding: 0; font-weight: 400; }
+ul { list-style: none; }
+a { color: inherit; text-decoration: none; }
+img, video { display: block; }
+picture { display: contents; }
+/* Fuoco da tastiera come sul sito Wix online (box-shadow 2px bianco + 4px blu, solo da tastiera) */
+:focus-visible { outline: none; box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 4px #116DFF; }
+.salta { position: absolute; top: 60px; left: 50%; margin-left: -94px; z-index: 9999; width: 0; height: 0; padding: 0 24px; border: 0; border-radius: 24px; background: #FFFFFF; color: rgb(17, 109, 255); font-family: Helvetica, Arial, sans-serif; font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none; cursor: pointer; }
+.salta:focus { opacity: 1; pointer-events: auto; border: 2px solid; width: auto; height: 40px; box-shadow: none; }
+#principale:focus { box-shadow: none; }
+.fk { font-family: "Fahkwang", sans-serif; }
+.cg { font-family: "Cormorant Garamond", serif; font-weight: 300; }
+.contenitore { position: relative; width: 980px; margin: 0 auto; }
+.abs { position: absolute; }
+.copri { width: 100%; height: 100%; object-fit: cover; }
+.solo-tel { display: none; }
+
+/* ---------- Testata (BRIEF-TRASVERSALE §2) ---------- */
+.testata { position: relative; height: 276px; background: var(--bianco); }
+.testata .striscia { position: absolute; left: 0; right: 0; top: 0; height: 25px; background: var(--blu); }
+.testata .linea { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--grigio-linea); }
+.testata .linea-1 { top: 197px; }
+.testata .linea-2 { top: 271px; }
+.testata .contenitore { height: 276px; }
+.logo-box { left: 368px; top: 24px; width: 243px; height: 137px; background: var(--blu); }
+.logo-box img { position: absolute; left: 27px; top: 7px; width: 189px; height: 105px; object-fit: cover; }
+.cerca { left: 938px; top: 117px; width: 42px; height: 42px; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.cerca svg { position: absolute; left: 8px; top: 8px; width: 26px; height: 26px; fill: var(--blu); transition: fill 0.4s; }
+.cerca:hover svg { fill: var(--ruggine); }
+.menu { left: 0; top: 215px; width: 980px; height: 39px; }
+.menu ul { display: flex; height: 39px; }
+.menu li { flex: 1 1 auto; }
+.menu a { display: flex; align-items: center; justify-content: center; height: 39px; padding: 0 5px; font-size: 16px; color: var(--blu); white-space: nowrap; transition: color 0.4s; }
+.menu a p { padding: 0 10px; line-height: 39px; }
+.menu a:hover, .menu a[aria-current="page"] { color: var(--ruggine); }
+.menu-tel-apri, .menu-tel { display: none; }
+
+/* ---------- Footer (BRIEF-TRASVERSALE §3) ---------- */
+.piede { position: relative; height: 414px; background: var(--blu); color: var(--bianco); }
+.piede .contenitore { height: 414px; }
+.piede-logo { left: -52.7px; top: 76.5px; width: 298px; height: 175px; object-fit: cover; }
+.piede-prenota { left: 398px; top: 86px; width: 208px; }
+.piede-prenota p:first-child { font-size: 23px; line-height: 32.2px; }
+.piede-prenota p + p { font-size: 16px; line-height: 22.4px; }
+.piede-icone { left: 405.9px; top: 167.1px; display: flex; gap: 15px; }
+.piede-icone .icona-tel { margin-left: -1px; }
+.piede-nap { left: 738px; top: 86px; width: 298px; }
+.piede-nap p { font-size: 16px; line-height: 22.4px; }
+.piede-nap .nap-nome { font-size: 21px; line-height: 29.4px; }
+.piede-nap .nap-vuota { font-size: 23px; line-height: 32.2px; }
+.copyright { left: -4px; top: 374px; width: 993px; font-size: 14px; line-height: 19.6px; text-align: center; color: var(--grigio-linea); }
+
+/* ---------- Componenti ---------- */
+.icona { width: 45px; height: 45px; }
+.icona img { width: 45px; height: 45px; object-fit: cover; }
+.icona-tel { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; border-radius: 200px; transition: background 0.2s; }
+.icona-tel svg { width: 30px; height: 30px; transition: fill 0.2s; }
+.icona-tel-nera { background: var(--nero); }
+.icona-tel-nera svg { fill: var(--bianco); }
+.icona-tel-bianca { background: var(--bianco); }
+.icona-tel-bianca svg { fill: var(--nero); }
+.icona-tel:hover { background: rgba(11, 47, 91, 0); }
+.icona-tel:hover svg { fill: var(--blu-icona-hover); }
+.bottone { display: flex; align-items: center; justify-content: center; box-sizing: border-box; height: 40px; font-size: 16px; letter-spacing: 0.1em; white-space: nowrap; transition: 0.2s; }
+.bottone span { margin-right: 4px; }
+.bottone-bianco { background: var(--bianco); color: var(--blu); }
+.bottone-bianco:hover { color: var(--blu-hover); }
+.bottone-blu { background: var(--blu); color: var(--bianco); }
+.bottone-blu:hover { border: 1px solid var(--blu); background: var(--bianco); color: var(--blu); }
+.testo { font-size: 16px; line-height: 25.6px; }
+.titolo-23 { font-size: 23px; line-height: 32.2px; }
+.su-blu { color: var(--bianco); }
+.su-bianco { color: var(--blu); }
+
+/* Video della home: si comporta come su Wix (clic = pausa/play; icona pausa al passaggio del mouse mentre gira) */
+.video-box { cursor: pointer; overflow: hidden; }
+.video-box video, .video-box img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-icone { position: absolute; left: 50%; top: 50%; width: 81px; height: 82px; margin: -41px 0 0 -40.5px; pointer-events: none; }
+.video-icone svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.video-pausa, .video-play { position: absolute; inset: 0; }
+.video-pausa { opacity: 0; transform: scale(0.95); transition: transform 0.3s cubic-bezier(0.12, 0, 0.39, 0), opacity 0.1s cubic-bezier(0.61, 1, 0.88, 1); }
+.video-pausa svg { left: 2px; top: 2px; width: 77px; height: 77px; }
+.video-play { opacity: 0.99; transition: transform 0.15s cubic-bezier(0.12, 0, 0.39, 0), opacity 0.5s cubic-bezier(0.61, 1, 0.88, 1); }
+.video-box[data-pronto] img { opacity: 0; }
+.video-box:focus-visible { box-shadow: none; }
+.video-box[data-playing] .video-play { opacity: 0; transition-duration: 0.15s, 0.3s; }
+.video-box[data-roll-in] .video-play { transition-duration: 0.25s, 0.5s; transform: scale(1.07); }
+.video-box[data-roll-in][data-playing] .video-play { transition-duration: 0.25s, 0.3s; }
+.video-box[data-roll-in][data-playing] .video-pausa { opacity: 1; transition-delay: 0.35s; transform: scale(1); }
+.video-box:focus-visible .video-cornice { outline-offset: 1px; outline: rgb(17, 109, 255) solid 2px; box-shadow: rgb(255, 255, 255) 0 0 1px 2px; }
+.video-cornice { position: absolute; inset: 0; pointer-events: none; }
+
+/* ---------- Animazioni di comparsa (Wix: motion-fadeIn / motion-floatIn, 1200 ms) ---------- */
+@keyframes comparsa-fade { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes comparsa-float { 0% { opacity: 0; transform: translate(0, 60px); } 100% { opacity: 1; transform: translate(0, 0); } }
+@media (prefers-reduced-motion: no-preference) {
+  @media (min-width: 768px) {
+    .js [data-anim-pc]:not(.entrato) { opacity: 0; }
+    .js [data-anim-pc="fade"].entrato { animation: comparsa-fade var(--comparsa) 1ms both; }
+    .js [data-anim-pc="float"].entrato { animation: comparsa-float var(--comparsa) 1ms both; }
+  }
+  @media (max-width: 767px) {
+    .js [data-anim-tel]:not(.entrato) { opacity: 0; }
+    .js [data-anim-tel="fade"].entrato { animation: comparsa-fade var(--comparsa) 1ms both; }
+    .js [data-anim-tel="float"].entrato { animation: comparsa-float var(--comparsa) 1ms both; }
+  }
+}
+
+/* ---------- HOME, computer ---------- */
+.home-hero { position: relative; height: 1130px; }
+.home-hero .banda { position: absolute; left: 0; right: 0; top: 512px; height: 618px; background: var(--blu); }
+.home-hero .contenitore { height: 1130px; }
+.home-h1 { left: 0; top: 19px; width: 974px; font-size: 45px; line-height: 1.4em; text-align: center; color: var(--blu); }
+.home-h1 .r2 { font-size: 40px; }
+.home-h1 .r3 { font-size: 30px; }
+.home-foto-hero { left: -100px; top: 314px; width: 1180px; height: 670px; }
+.cerchio { left: 796px; top: 854px; width: 130px; height: 130px; }
+.cerchio div { width: 100%; height: 100%; border-radius: 50%; background: var(--ruggine); box-shadow: var(--ruggine) 0 0 14px 24px; }
+.cerchio-testo { left: 801px; top: 882px; width: 119px; transform: rotate(-20.2deg); font-size: 20px; line-height: 28px; text-align: center; color: var(--bianco); }
+.home-h2-gusto { left: -5px; top: 1036px; width: 980px; font-size: 37px; line-height: 55.5px; text-align: center; color: var(--bianco); }
+
+.home-corpo { position: relative; min-height: 1967px; }
+.home-corpo .banda-a { position: absolute; left: 0; right: 0; top: 178px; height: 540px; background: var(--blu); }
+.home-corpo .banda-c { position: absolute; left: 0; right: 0; top: 1406px; height: 561px; background: var(--blu); }
+.home-corpo .contenitore { min-height: 1967px; }
+.colonna { position: absolute; }
+.colonna .testo { width: 437px; }
+.colonna h2 { width: 430px; }
+.home-col-a { left: -40px; top: 232px; }
+.home-col-a .testo { margin-top: 45px; }
+.home-col-a .testo { min-height: 144px; }
+.home-col-a .bottone { width: 142px; margin-top: 33px; }
+.home-foto-anna { left: 587px; top: 42.5px; width: 443px; height: 565px; }
+.home-video { left: -50.1px; top: 611.5px; width: 450.1px; height: 554.1px; }
+.home-col-b { left: 590px; top: 828px; }
+.home-col-b .testo { margin-top: 43px; }
+.home-col-b .testo { min-height: 230px; }
+.home-col-b .bottone { width: 159px; margin: 29px 0 0 2px; }
+.home-col-c { left: -40px; top: 1448px; }
+.home-col-c .testo { margin-top: 45px; }
+.home-col-c .testo { min-height: 282px; }
+.home-col-c .bottone { width: 142px; margin: 26px 0 0 -1px; }
+.home-foto-sala { left: 580px; top: 1225.5px; width: 450px; height: 561px; }
+
+.home-prenota { position: relative; min-height: 637px; }
+.home-prenota .contenitore { min-height: 637px; }
+.home-col-d { left: -36px; top: 158px; }
+.home-col-d h2 { width: 467px; font-size: 34px; line-height: 51px; }
+.home-col-d .testo { margin-top: 41px; }
+.home-col-d .testo { min-height: 144px; }
+.home-col-d .icone { display: flex; margin-top: 32.5px; gap: 10px; }
+.home-col-d .icone .icona-tel { margin-left: 1px; }
+.home-foto-esterno { left: 584px; top: 69.5px; width: 450px; height: 494px; }
+
+/* ---------- CHI SONO, computer ---------- */
+.elenco { list-style: disc; padding-left: 1.3em; margin-left: 0.5em; }
+.chi-corpo { position: relative; height: 1777px; }
+.chi-corpo .banda { position: absolute; left: 0; right: 0; top: 178px; height: 1599px; background: var(--blu); }
+.chi-corpo .contenitore { height: 1777px; }
+.chi-h1 { left: -40px; top: 57px; width: 470px; font-size: 45px; line-height: 1.4em; }
+.chi-foto-anna { left: 546px; top: 85px; width: 445px; height: 621px; }
+.chi-col { left: -40px; top: 233px; }
+.chi-col .titolo-23 { width: 430px; }
+.chi-col .testo { width: 436px; margin-top: 41px; }
+.chi-foto-polpo { left: -87px; top: 1272px; width: 381px; height: 439px; }
+.chi-cerchio { left: 248px; top: 1397px; }
+.chi-cerchio-testo { left: 243px; top: 1426px; width: 140px; transform: rotate(-20.2deg); font-size: 20px; line-height: 1.2em; text-align: center; }
+.chi-foto-cucina { left: 647px; top: 1233px; width: 383px; height: 255px; }
+.chi-foto-tartare { left: 452px; top: 1397px; width: 206px; height: 271px; }
+.chi-interviste { position: relative; height: 402px; }
+.chi-intervista-1 { left: calc(50% - 597.9px); top: 35px; width: 466px; height: 330px; }
+.chi-intervista-2 { left: calc(50% + 126.1px); top: 41px; width: 466px; height: 330px; }
+
+/* ---------- LA MIA CUCINA, computer ---------- */
+.cucina-corpo { position: relative; height: 1927px; }
+.cucina-corpo .contenitore { height: 1927px; }
+.cucina-corpo .banda { position: absolute; left: 0; right: 0; background: var(--blu); }
+.cucina-corpo .banda-1 { top: 178px; height: 566px; }
+.cucina-corpo .banda-2 { top: 1325px; height: 602px; }
+.cucina-h1 { left: -40px; top: 57px; width: 474px; font-size: 30px; line-height: 1.4em; }
+.cucina-corpo .colonna h2 { width: 430px; }
+.cucina-corpo .colonna .testo { margin-top: 44px; }
+.cucina-col-1 { left: -40px; top: 231px; }
+.cucina-col-1 .testo { min-height: 255.9px; }
+.cucina-col-2 { left: 590px; top: 853px; }
+.cucina-corpo .cucina-col-2 .testo { margin-top: 43px; min-height: 179.2px; }
+.cucina-col-3 { left: -40px; top: 1367px; }
+.cucina-col-3 .testo { min-height: 409.5px; }
+.cucina-foto-gnocchi { left: 587px; top: 41px; width: 443px; height: 565px; }
+.cucina-foto-scampi { left: -51px; top: 636px; width: 452px; height: 573px; }
+.cucina-foto-vini { left: 580px; top: 1144px; width: 450px; height: 561px; }
+
+/* ---------- IL LOCALE, computer ---------- */
+.locale-corpo { position: relative; height: 2623px; }
+.locale-corpo .contenitore { height: 2623px; }
+.locale-corpo .banda { position: absolute; left: 0; right: 0; top: 304px; height: 2319px; background: var(--blu); }
+.locale-h1 { left: -40px; top: 57px; width: 480px; font-size: 45px; line-height: 1.4em; }
+.locale-h1 span { font-size: 26px; }
+.locale-f1 { left: -35px; top: 388px; width: 460px; height: 397px; }
+.locale-f2 { left: -35px; top: 881px; width: 460px; height: 550px; }
+.locale-f3 { left: -36px; top: 1525px; width: 460px; height: 397px; }
+.locale-f4 { left: -35px; top: 1972px; width: 460px; height: 550px; }
+.locale-f5 { left: 555px; top: 125px; width: 460px; height: 571px; }
+.locale-f6 { left: 555px; top: 798px; width: 460px; height: 397px; }
+.locale-f7 { left: 555px; top: 1256px; width: 460px; height: 550px; }
+.locale-f8 { left: 555px; top: 1859px; width: 460px; height: 397px; }
+
+/* ---------- I PIATTI, computer ---------- */
+.piatti-corpo { position: relative; height: 5872px; }
+.piatti-corpo .contenitore { height: 5872px; }
+.piatti-corpo .banda { position: absolute; left: 0; right: 0; top: 527px; height: 5345px; background: var(--blu); }
+.piatti-h1 { left: -45px; top: 48px; width: 480px; font-size: 20px; line-height: 1.4em; text-align: center; }
+.piatti-h1 .grande { font-size: 25px; }
+.piatti-h1 strong { font-weight: 700; }
+.piatti-foto-chef { left: 543px; top: 331px; width: 420px; height: 420px; }
+.galleria { left: -40px; top: 777px; width: 1060px; height: 4982px; }
+.piatti-voce { position: absolute; left: var(--x); top: var(--y); width: var(--w); height: var(--h); cursor: pointer; }
+.piatti-voce::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(0, 0, 0, 0.3); opacity: 0; }
+.piatti-voce:hover::before { opacity: 1; }
+
+/* Vista grande della galleria (come Wix: a computer finestra a tutto schermo con frecce, a telefono foto che scorrono) */
+.vista { position: fixed; inset: 0; z-index: 100001; background: var(--bianco); color: var(--blu); }
+.vista[hidden] { display: none; }
+.vista-aperta { overflow: hidden; }
+.vista button { position: absolute; z-index: 1; padding: 0; border: 0; background: transparent; color: var(--blu); cursor: pointer; }
+.vista-espandi, .vista-chiudi { top: 26px; width: 38px; height: 44px; }
+.vista-espandi { left: 35px; }
+.vista-chiudi { top: 30px; left: calc(100% - 68px); }
+.vista-espandi svg, .vista-chiudi svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.vista-freccia { top: calc(50% - 25px); width: 50px; height: 50px; }
+.vista-freccia svg { display: block; margin: auto; fill: currentColor; }
+.vista-prec { left: 20px; }
+.vista-succ { left: calc(100% - 503px); }
+.vista[data-primo] .vista-prec, .vista[data-ultimo] .vista-succ { visibility: hidden; }
+.vista-binario { position: absolute; inset: 0; display: flex; overflow: hidden; }
+.vista-foto { position: relative; flex: 0 0 100%; }
+.vista-img { position: absolute; left: 90px; top: 74px; right: 523px; bottom: 74px; }
+.vista-img img { width: 100%; height: 100%; object-fit: contain; }
+.vista-foto h1 { position: absolute; left: calc(100% - 428px); top: 130px; width: 308px; font-size: 34px; line-height: 51px; }
+
+/* ---------- IL MENU, computer ---------- */
+.menu-corpo { position: relative; height: 1652px; }
+.menu-corpo .contenitore { height: 1652px; }
+.menu-corpo .banda { position: absolute; left: 0; right: 0; top: 259px; height: 1392px; background: var(--blu); }
+.menu-h1a { left: -40px; top: 57px; width: 488px; font-size: 37px; line-height: 1.4em; }
+.menu-h1a .grande { font-size: 40px; }
+.menu-h1b { left: 498px; top: 37px; width: 488px; font-size: 26px; line-height: 1.4em; text-align: center; }
+.menu-h1b strong { font-weight: 700; }
+.menu-h1b .piccolo { font-size: 16px; }
+.menu-galleria { left: 0; top: 311px; width: 897px; height: 1253px; overflow: hidden; }
+.menu-scorri { position: absolute; left: -5px; top: -5px; width: 907px; height: 1263px; display: flex; gap: 10px; padding: 5px; box-sizing: border-box; overflow-x: auto; scrollbar-width: none; }
+.menu-voce { flex: 0 0 886px; height: 1253px; cursor: pointer; }
+.menu-freccia { position: absolute; top: calc(50% - 20px); width: 40px; height: 40px; padding: 0; border: 0; border-radius: 50%; background: var(--bianco); opacity: 0.9; cursor: pointer; }
+.menu-freccia:hover { opacity: 1; }
+.menu-freccia svg { display: block; margin: auto; fill: var(--blu); transform: scale(0.4273504273504274); }
+.menu-prec svg { transform: scaleX(-1) scale(0.4273504273504274); }
+.menu-prec { left: 23px; }
+.menu-succ { left: 834px; }
+.vista-sola .vista-img { right: 90px; }
+
+/* ---------- CONTATTI, computer ---------- */
+.contatti-corpo { position: relative; height: 1422px; }
+.contatti-corpo .contenitore { height: 1422px; }
+.contatti-corpo .banda { position: absolute; left: 0; right: 0; top: 241px; height: 1180px; background: var(--blu); }
+.contatti-h1 { left: -40px; top: 57px; width: 480px; font-size: 30px; line-height: 1.4em; }
+.contatti-invito { left: -30px; top: 319px; width: 382px; font-size: 20px; line-height: 1.5em; }
+.contatti-nap { left: -30px; top: 468px; width: 208px; }
+.contatti-nap p { font-size: 16px; line-height: 22.4px; }
+.contatti-nap .nap-nome, .contatti-nap .nap-vuota { font-size: 23px; line-height: 32.2px; }
+.contatti-poster { left: 592px; top: 96px; width: 430px; height: 623px; border: 1px solid rgb(247, 198, 96); }
+.contatti-cerchio { left: 478px; top: 517px; }
+.contatti-cerchio-testo { left: 462px; top: 553px; width: 119px; transform: rotate(-20.2deg); font-size: 20px; line-height: 1.4em; text-align: center; }
+.contatti-prenota { left: -30px; top: 843px; width: 402px; font-size: 32px; line-height: 1.5em; }
+.contatti-icone { left: -31px; top: 933px; display: flex; gap: 15px; }
+.contatti-foto-tavolo { left: -30px; top: 1001px; width: 349px; height: 275px; }
+.contatti-regole { left: 576px; top: 880px; width: 432px; font-size: 22px; line-height: 1.6em; text-align: center; }
+
+/* ---------- Ricerca: pannello dalla testata (come Wix: velo nero 30%, pannello bianco largo 980 in alto) ---------- */
+.ricerca { position: fixed; inset: 0; z-index: 100002; overflow-y: auto; color: var(--blu); }
+.ricerca[hidden] { display: none; }
+.ricerca-velo { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.3); }
+.ricerca-pannello { position: relative; width: 980px; margin: 0 auto; padding: 112px 0 72px; box-sizing: border-box; background: var(--bianco); }
+.ricerca-campo { position: absolute; left: 32px; top: 32px; width: 851.7px; height: 48px; margin: 0; border: 1px solid rgba(11, 43, 90, 0.7); box-sizing: border-box; background: var(--bianco); }
+.ricerca-lente svg { position: absolute; left: 13px; top: 15.8px; width: 14.4px; height: 14.4px; fill: var(--blu); }
+.ricerca-campo input { position: absolute; left: 34.4px; top: 0; right: 38px; height: 46px; padding: 0; border: 0; outline: 0; background: transparent; font: inherit; font-variation-settings: inherit; font-size: 16px; line-height: 25.6px; color: var(--blu); -webkit-appearance: none; appearance: none; }
+.ricerca-campo input::placeholder { color: var(--blu); opacity: 1; }
+.ricerca-campo input:focus-visible, .cerca-form input:focus-visible { box-shadow: none; }
+.ricerca-campo input::-webkit-search-cancel-button { display: none; }
+.ricerca-svuota, .cerca-svuota { position: absolute; right: 0; top: 0; width: 38px; height: 46px; padding: 0; border: 0; background: transparent; color: var(--blu); cursor: pointer; }
+.ricerca-svuota[hidden], .cerca-svuota[hidden] { display: none; }
+.ricerca-svuota svg, .cerca-svuota svg { width: 9px; height: 9px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.ricerca-svuota svg { width: 14px; height: 14px; stroke-width: 1; }
+.ricerca-close { position: absolute; left: 907.7px; top: 44px; width: 40.3px; height: 24px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 16px; line-height: 24px; color: var(--blu); cursor: pointer; }
+.ricerca-corpo { padding: 24px 32px 0; }
+.ricerca h2, .ricerca h1 { font-size: 16px; line-height: 24px; }
+.ricerca h2 { font-variation-settings: normal; }
+.ricerca ul { display: grid; grid-template-columns: repeat(3, 289.4px); gap: 26px 24px; margin-top: 32px; }
+.ricerca-scheda { display: flex; gap: 7.9px; height: 82px; }
+.ricerca-miniatura { flex: 0 0 82px; height: 82px; background: var(--blu); }
+.ricerca-miniatura img { width: 82px; height: 82px; object-fit: cover; }
+.ricerca-testi { min-width: 0; flex: 1; }
+.ricerca-testi a { display: block; padding-left: 2px; overflow: hidden; font-family: "Fahkwang", sans-serif; font-variation-settings: normal; font-size: 16px; line-height: 24px; white-space: nowrap; text-overflow: ellipsis; }
+.ricerca-desc { display: -webkit-box; margin-top: 8px; overflow: hidden; font-size: 16px; line-height: 24px; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.ricerca-tutti { display: block; width: 180px; height: 48px; margin-top: 50px; padding: 0; border: 0; background: var(--blu); font: inherit; font-size: 16px; line-height: 24px; color: var(--bianco); cursor: pointer; }
+.ricerca-due { display: flex; gap: 16px; }
+.ricerca-suggerimenti { flex: 0 0 245px; }
+.ricerca-suggerimenti h2 { line-height: 22.4px; }
+.ricerca-suggerimenti ol { margin: 32px 0 0; padding: 0; list-style: none; }
+.ricerca-suggerimenti li { height: 28px; margin-bottom: 12px; }
+.ricerca-suggerimenti a { display: block; padding: 2.8px 0 0 2px; overflow: hidden; font-size: 16px; line-height: 22.4px; white-space: nowrap; text-overflow: ellipsis; }
+.ricerca-due .ricerca-pagine { flex: 0 0 655px; }
+.ricerca-due ul { grid-template-columns: repeat(2, 315.5px); }
+.ricerca-due .ricerca-tutti { margin-top: 48px; }
+.ricerca-vuoto { width: 436.5px; }
+.ricerca-aperta { overflow: hidden; }
+
+/* ---------- Pagina /search (risultati) ---------- */
+.visivo-nascosto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; font-family: Arial, Helvetica, sans-serif; font-size: 20px; font-weight: 700; }
+.cerca-corpo .contenitore { min-height: 436px; padding: 52px 0 16px; box-sizing: border-box; }
+.cerca-h1 { width: 600px; margin: 0 auto; font-size: 32px; line-height: normal; text-align: center; color: var(--blu); }
+.cerca-form { position: relative; width: 940px; height: 52px; margin: 43px 0 0 20px; border: 1px solid rgba(11, 43, 90, 0.6); box-sizing: border-box; background: var(--bianco); }
+.cerca-form .ricerca-lente svg { left: 12px; top: 17px; width: 16px; height: 16px; }
+.cerca-form input { position: absolute; left: 30px; top: 0; right: 38px; height: 50px; padding: 0; border: 0; outline: 0; background: transparent; font-family: inherit; font-variation-settings: inherit; font-size: 20px; line-height: 28px; color: var(--blu); -webkit-appearance: none; appearance: none; }
+.cerca-form input::placeholder { color: var(--blu); opacity: 1; }
+.cerca-form input::-webkit-search-cancel-button { display: none; }
+.cerca-svuota { height: 50px; opacity: 0.6; }
+.cerca-stato { margin: 22.2px 0 0 20px; font-size: 14px; line-height: 19.6px; color: var(--blu); }
+.cerca-lista { margin: 22.2px 0 0 20px; width: 940px; }
+.cerca-lista li { position: relative; height: 124px; margin-bottom: 32px; color: var(--blu); }
+.cerca-miniatura { position: absolute; left: 0; top: 0; width: 176px; height: 124px; }
+.cerca-miniatura img { width: 176px; height: 124px; object-fit: cover; }
+.cerca-titolo { position: absolute; left: 208px; top: 14.6px; max-width: 700px; overflow: hidden; font-family: "Fahkwang", sans-serif; font-variation-settings: normal; font-size: 20px; line-height: 28px; white-space: nowrap; text-overflow: ellipsis; text-decoration: underline; }
+.cerca-testo { position: absolute; left: 208px; top: 50.6px; width: 700px; display: -webkit-box; overflow: hidden; font-size: 14px; line-height: 19.6px; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
+.ricerca mark, .cerca-lista mark { background: var(--ruggine); color: var(--bianco); }
+
+/* ---------- 404 (contenuto della pagina 404 di Wix; testata e footer del sito, come chiesto da Gabriele) ---------- */
+.errore { min-height: 900px; padding: 13.72vw 5vw 0; box-sizing: border-box; color: var(--nero); }
+.errore h2 { font-size: 1.35vw; font-weight: 700; line-height: 1.286; letter-spacing: 0.05em; }
+.errore h1 { font-size: 20vw; line-height: 1.26; letter-spacing: -0.07em; }
+.errore-testo { font-size: 1.95vw; line-height: 1.246; }
+.errore-link { display: block; width: 50vw; padding: 1.25vw 0 0.75vw; margin-top: 1.875vw; }
+.errore-bottone { display: inline-flex; align-items: center; height: 3.67vw; padding: 0 2.8vw; border-radius: 999px; background: var(--nero); font-size: 1.5vw; color: var(--bianco); }
+
+/* ---------- Telefono (impaginazione Wix da 320 px) ---------- */
+@media (max-width: 767px) {
+  body { min-width: 0; }
+  .solo-pc { display: none; }
+  .solo-tel { display: inline; }
+  .contenitore { width: 320px; }
+
+  .testata { height: 95px; }
+  .testata .striscia { height: 24px; }
+  .testata .linea, .menu { display: none; }
+  .testata .contenitore { height: 95px; }
+  .logo-box { left: 66px; top: 0; width: 188px; height: 95px; }
+  .logo-box img { left: 29px; top: 10px; width: 130px; height: 72px; }
+  .cerca { left: 139px; top: 45px; }
+  .menu-tel-apri { display: block; position: absolute; left: 264px; top: 34px; width: 50px; height: 50px; padding: 0; border: 0; background: transparent; cursor: pointer; z-index: 100000; }
+  .menu-tel-apri .linee { position: relative; display: block; width: 22px; height: 20px; margin: auto; }
+  .menu-tel-apri .linee span { position: absolute; left: 0; width: 100%; height: 2px; border-radius: 2px; background: var(--blu); transition: 0.25s ease-in-out; }
+  .menu-tel-apri .linee span:nth-child(1) { top: 0; }
+  .menu-tel-apri .linee span:nth-child(2) { top: 0; bottom: 0; margin: auto; }
+  .menu-tel-apri .linee span:nth-child(3) { bottom: 0; }
+  .menu-aperto .menu-tel-apri { position: fixed; }
+  .menu-aperto .menu-tel-apri .linee span:nth-child(1) { transform: translateY(10px) translateY(-50%) rotate(-45deg); }
+  .menu-aperto .menu-tel-apri .linee span:nth-child(2) { opacity: 0; }
+  .menu-aperto .menu-tel-apri .linee span:nth-child(3) { transform: translateY(-10px) translateY(50%) rotate(45deg); }
+  .menu-tel { display: block; position: fixed; inset: 0; height: 100vh; z-index: 99999; background: var(--bianco); opacity: 0; visibility: hidden; }
+  .menu-tel ul { width: 188px; margin: 97px auto 0; transform: translateY(-50px); }
+  .menu-tel a { display: block; height: 56px; font-size: 18px; line-height: 56px; text-align: center; color: var(--blu); }
+  .menu-tel a[aria-current="page"] { color: var(--ruggine); }
+  .menu-aperto .menu-tel { opacity: 1; visibility: visible; transition: opacity 0.5s cubic-bezier(0.645, 0.045, 0.355, 1); }
+  .menu-aperto .menu-tel ul { transform: translateY(0); transition: transform 0.5s cubic-bezier(0.645, 0.045, 0.355, 1); }
+
+  .piede { height: 463px; }
+  .piede .contenitore { height: 463px; }
+  .piede-logo { left: 89px; top: 28.9px; width: 142px; height: 84px; }
+  .piede-prenota { left: 10px; top: 133px; width: 300px; text-align: center; }
+  .piede-prenota p:first-child { font-size: 18px; line-height: 25.2px; }
+  .piede-prenota p + p { font-size: 13px; line-height: 18.2px; }
+  .piede-icone { left: 84px; top: 176.3px; }
+  .piede-icone .icona-tel { width: 42px; height: 42px; margin: 1px 0 0 5px; }
+  .piede-nap { left: 10px; top: 229px; width: 300px; text-align: center; }
+  .piede-nap p { font-size: 15px; line-height: 21px; }
+  .piede-nap .nap-nome { font-size: 20px; line-height: 28px; }
+  .piede-nap .nap-vuota { font-size: 22px; line-height: 30.8px; }
+  .copyright { left: 20px; top: 393px; width: 280px; font-size: 10px; line-height: 14px; text-align: left; color: var(--grigio-copyright-tel); }
+
+  .bottone { height: 42px; }
+  .icona-tel { width: 42px; height: 42px; }
+  .video-icone { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
+  .video-pausa svg { left: 1.2px; top: 1.3px; width: 47.5px; height: 47.5px; }
+
+  /* home */
+  .home-hero { height: 801px; }
+  .home-hero .banda { top: 302px; height: 499px; }
+  .home-hero .contenitore { height: 801px; }
+  .home-h1 { left: 20px; top: 26px; width: 280px; font-size: 25px; line-height: 35px; }
+  .home-h1 .r2 { font-size: 23px; }
+  .home-h1 .r3 { font-size: 21px; }
+  .home-foto-hero { left: 0; top: 302px; width: 320px; height: 267px; }
+  .cerchio { left: 51px; top: 520px; width: 109px; height: 109px; }
+  .cerchio-testo { left: 48px; top: 537px; width: 115px; font-size: 17px; line-height: 23.8px; }
+  .home-h2-gusto { left: 20px; top: 672px; width: 280px; font-size: 22px; line-height: 33px; }
+
+  .home-corpo { min-height: 2713px; }
+  .home-corpo .contenitore { min-height: 2713px; }
+  .home-corpo .banda-a { top: 0; height: 774px; }
+  .home-corpo .banda-c { top: 1648px; height: 1045px; }
+  .colonna .testo, .colonna h2 { width: 280px; }
+  .colonna .titolo-23 { font-size: 20px; line-height: 28px; }
+  .colonna .bottone { margin-left: 60px; }
+  .home-col-a { left: 20px; top: 27px; }
+  .home-col-a .testo { margin-top: 16px; }
+  .home-col-a .testo { min-height: 205px; }
+  .home-col-a .bottone { width: 160px; margin-top: 27px; }
+  .home-foto-anna { left: 20px; top: 396.8px; width: 280px; height: 357px; }
+  .home-col-b { left: 20px; top: 794px; }
+  .home-col-b .testo { margin-top: 20px; }
+  .home-col-b .testo { min-height: 282px; }
+  .home-col-b .bottone { width: 172px; margin: 14px 0 0 54px; }
+  .home-video { left: 20px; top: 1253.3px; width: 280px; height: 344px; }
+  .home-col-c { left: 20px; top: 1668px; }
+  .home-col-c .testo { margin-top: 33px; }
+  .home-col-c .testo { min-height: 435px; }
+  .home-col-c .bottone { width: 160px; margin: 18px 0 0 60px; }
+  .home-foto-sala { left: 20px; top: 2304.4px; width: 280px; height: 349px; }
+
+  .home-prenota { min-height: 666px; }
+  .home-prenota .contenitore { min-height: 666px; }
+  .home-col-d { left: 20px; top: 28px; }
+  .home-col-d h2 { width: 239px; font-size: 18px; line-height: 27px; }
+  .home-col-d .testo { margin-top: 14px; }
+  .home-col-d .testo { min-height: 154px; }
+  .home-col-d .icone { margin: 15.9px 0 0 -2px; }
+  .home-col-d .icone .icona-tel { margin: 3px 0 0 4px; }
+  .home-foto-esterno { left: 20px; top: 334.9px; width: 280px; height: 307px; }
+
+  /* chi sono */
+  .chi-corpo { height: 2129.7px; }
+  .chi-corpo .contenitore { height: 2129.7px; }
+  .chi-corpo .banda { top: 79.6px; height: 1998.1px; }
+  .chi-h1 { left: 22px; top: 26px; width: 270px; font-size: 24px; }
+  .chi-col { left: 20px; top: 105.6px; }
+  .chi-col .titolo-23 { width: 280px; font-size: 20px; line-height: 28px; }
+  .chi-col .testo { width: 280px; margin-top: 252px; min-height: 1254.1px; }
+  .chi-foto-cucina { left: 12px; top: 159.6px; width: 287px; height: 190px; }
+  .chi-foto-anna { left: 20px; top: 1664.7px; width: 280px; height: 359px; }
+  .chi-cerchio { left: 142px; top: 1968.7px; width: 109px; height: 109px; }
+  .chi-cerchio-testo { left: 150px; top: 1993.7px; width: 93px; font-size: 17px; }
+  .chi-interviste { height: 480px; }
+  .chi-intervista-1 { left: 20px; top: 21px; width: 280px; height: 198px; }
+  .chi-intervista-2 { left: 20px; top: 260px; width: 280px; height: 198px; }
+
+  /* la mia cucina */
+  .cucina-corpo, .cucina-corpo .contenitore { height: 2720px; }
+  .cucina-corpo .banda-1 { top: 69.8px; height: 496.3px; }
+  .cucina-corpo .banda-2 { top: 1631.1px; height: 1068.5px; }
+  .cucina-h1 { left: 22px; top: 23px; width: 285px; font-size: 17px; }
+  .cucina-corpo .colonna h2 { width: 270px; font-size: 20px; line-height: 28px; }
+  .cucina-col-1 { left: 20px; top: 104.8px; }
+  .cucina-corpo .cucina-col-1 h2 { width: 280px; }
+  .cucina-corpo .cucina-col-1 .testo { margin: 24px 0 0 7px; min-height: 358.3px; }
+  .cucina-col-2 { left: 20px; top: 877px; }
+  .cucina-corpo .cucina-col-2 .testo { margin-top: 15px; min-height: 307.1px; }
+  .cucina-col-3 { left: 20px; top: 1661.1px; }
+  .cucina-corpo .cucina-col-3 h2 { font-size: 17px; line-height: 23.8px; }
+  .cucina-corpo .cucina-col-3 .testo { margin-top: 24px; min-height: 588.7px; }
+  .cucina-foto-gnocchi { left: 115px; top: 577.1px; width: 185px; height: 236px; }
+  .cucina-foto-scampi { left: 20px; top: 1268.1px; width: 253px; height: 320px; }
+  .cucina-foto-vini { left: 20px; top: 2331.6px; width: 280px; height: 349px; }
+
+  /* il locale */
+  .locale-corpo, .locale-corpo .contenitore { height: 2658px; }
+  .locale-corpo .banda { top: 154.8px; height: 2503px; }
+  .locale-h1 { left: 52px; top: 25px; width: 248px; font-size: 24px; }
+  .locale-h1 span { font-size: 20px; }
+  .locale-f1 { left: 20px; top: 176.8px; width: 280px; height: 242px; }
+  .locale-f2 { left: 20px; top: 439.8px; width: 280px; height: 335px; }
+  .locale-f3 { left: 20px; top: 809.8px; width: 280px; height: 242px; }
+  .locale-f4 { left: 20px; top: 1070.8px; width: 280px; height: 335px; }
+  .locale-f5 { left: 20px; top: 1425.8px; width: 280px; height: 335px; }
+  .locale-f6 { left: 20px; top: 1780.8px; width: 280px; height: 242px; }
+  .locale-f7 { left: 20px; top: 2042.8px; width: 280px; height: 335px; }
+  .locale-f8 { left: 20px; top: 2395.8px; width: 280px; height: 242px; }
+
+  /* i piatti */
+  .piatti-corpo, .piatti-corpo .contenitore { height: 4472.4px; }
+  .piatti-corpo .banda { top: 177px; height: 4295.3px; }
+  .piatti-h1 { left: 22px; top: 26px; width: 248px; font-size: 15px; }
+  .piatti-h1 .grande { font-size: 19px; }
+  .piatti-foto-chef { left: 20px; top: 197px; width: 280px; height: 280px; }
+  .galleria { left: 20px; top: 490px; width: 280px; height: 3975.3px; }
+  .piatti-voce { left: var(--xt); top: var(--yt); width: var(--wt); height: var(--ht); }
+  .vista-espandi, .vista-freccia { display: none; }
+  .vista .vista-chiudi { left: 0; top: 0; width: 60px; height: 60px; }
+  .vista-chiudi svg { stroke-width: 1.5; }
+  .vista-binario { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .vista-foto { scroll-snap-align: start; }
+  .vista-img { position: static; margin-top: 60px; }
+  .vista-img img { height: auto; }
+  .vista-foto h1 { position: static; width: 280px; margin: 20px 20px 0; white-space: pre-wrap; }
+
+  /* il menu */
+  .menu-corpo, .menu-corpo .contenitore { height: 599px; }
+  .menu-corpo .banda { top: 180px; height: 408px; }
+  .menu-h1a { left: 44px; top: 30px; width: 248px; font-size: 19px; }
+  .menu-h1a .grande { font-size: 20px; }
+  .menu-h1b { left: 36px; top: 87.6px; width: 264px; font-size: 14px; }
+  .menu-h1b .piccolo { font-size: 9px; }
+  .menu-galleria { left: 20px; top: 207px; width: 280px; height: 354px; }
+  .menu-scorri { width: 290px; height: 364px; }
+  .menu-scorri { scroll-snap-type: x mandatory; }
+  .menu-voce { flex-basis: 250px; height: 354px; cursor: default; scroll-snap-align: center; }
+  .menu-freccia { display: none; }
+
+  /* contatti */
+  .contatti-corpo, .contatti-corpo .contenitore { height: 1771px; }
+  .contatti-corpo .banda { top: 95.4px; height: 1664.6px; }
+  .contatti-h1 { left: 22px; top: 23px; width: 275px; font-size: 18px; }
+  .contatti-poster { left: 17px; top: 127.4px; width: 278px; height: 391px; }
+  .contatti-cerchio { left: 176px; top: 533.4px; width: 101px; height: 95px; }
+  .contatti-cerchio-testo { left: 181px; top: 551.4px; width: 90px; font-size: 18px; }
+  .contatti-nap { left: 20px; top: 664.4px; width: 280px; }
+  .contatti-nap p { font-size: 15px; line-height: 21px; }
+  .contatti-nap .nap-nome, .contatti-nap .nap-vuota { font-size: 22px; line-height: 30.8px; }
+  .contatti-prenota { left: 20px; top: 858px; width: 280px; font-size: 19px; }
+  .contatti-icone { left: 21px; top: 906.5px; gap: 15px; }
+  .contatti-icone .icona-tel { margin: 1px 0 0 5px; }
+  .contatti-foto-tavolo { left: 20px; top: 978.5px; width: 221px; height: 174px; }
+  .contatti-regole { left: 20px; top: 1192.5px; width: 280px; font-size: 21px; }
+
+  /* ricerca */
+  .ricerca-pannello { width: 320px; }
+  .ricerca-campo { width: 191.7px; }
+  .ricerca-close { left: 247.7px; }
+  .ricerca ul, .ricerca-due ul { grid-template-columns: 256px; }
+  .ricerca-scheda { width: 256px; }
+  .ricerca-due { display: block; }
+  .ricerca-suggerimenti { width: 256px; }
+  .ricerca-due .ricerca-pagine h2 { margin-top: 52px; }
+  .ricerca-due ul { margin-top: 32px; }
+  .ricerca-due .ricerca-tutti { margin-top: 50px; }
+  .ricerca-vuoto { width: 256px; }
+  .cerca-corpo .contenitore { min-height: 221px; padding-top: 20px; }
+  .cerca-h1 { width: 280px; font-size: 21px; }
+  .cerca-form { width: 280px; height: 40px; margin-top: 36px; }
+  .cerca-form .ricerca-lente svg { left: 8px; top: 12px; width: 14px; height: 14px; }
+  .cerca-form input { left: 26px; height: 38px; font-size: 14px; line-height: 19.6px; }
+  .cerca-svuota { height: 38px; }
+  .cerca-stato { margin-top: 21.5px; line-height: 21px; }
+  .cerca-lista { width: 280px; margin-top: 21.5px; }
+  .cerca-lista li { height: 65.6px; margin-bottom: 20px; }
+  .cerca-miniatura { display: none; }
+  .cerca-titolo { left: 0; top: 0; max-width: 280px; font-size: 16px; line-height: 22.4px; }
+  .cerca-testo { left: 0; top: 26.4px; width: 280px; -webkit-line-clamp: 2; }
+
+  /* 404 */
+  .errore { min-height: 693px; padding-top: 9.64vw; }
+  .errore h2 { font-size: 4.5vw; line-height: 1.254; }
+  .errore h1 { font-size: 49vw; line-height: 1.261; }
+  .errore-testo { width: 79.7vw; font-size: 6vw; line-height: 1.282; }
+  .errore-link { width: 90vw; margin-top: 5.13vw; padding: 1vw 0 3.6vw; }
+  .errore-bottone { height: 11.26vw; padding: 0 5.4vw; font-size: 3.7vw; }
+}
