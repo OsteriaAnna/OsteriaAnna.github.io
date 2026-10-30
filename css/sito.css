@@ -669,12 +669,14 @@ picture { display: contents; }
 }
 
 /* ---------- fase 2.4 anticipo 29/10 — Il Menu, 30/10 (Gabriele): immagine del menu nuova (1333×2715, più alta della precedente 1333×1884):
-   il riquadro segue l'altezza dell'immagine e il corpo cresce di altrettanto ---------- */
+   il riquadro segue l'altezza dell'immagine; corpo e fascia blu crescono di altrettanto (+552 computer, +155 telefono) ---------- */
 .menu-galleria, .menu-voce { height: 1805px; }
 .menu-scorri { height: 1815px; }
 .menu-corpo, .menu-corpo .contenitore { height: 2235px; }
+.menu-corpo .banda { height: 1944px; }
 @media (max-width: 767px) {
   .menu-galleria, .menu-voce { height: 509px; }
   .menu-scorri { height: 519px; }
   .menu-corpo, .menu-corpo .contenitore { height: 827px; }
+  .menu-corpo .banda { height: 563px; }
 }
