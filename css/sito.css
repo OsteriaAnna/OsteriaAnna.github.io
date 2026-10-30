@@ -592,3 +592,67 @@ picture { display: contents; }
   .errore-link { width: 90vw; margin-top: 5.13vw; padding: 1vw 0 3.6vw; }
   .errore-bottone { height: 11.26vw; padding: 0 5.4vw; font-size: 3.7vw; }
 }
+
+/* ---------- fase 2.4 anticipo 29/10: H1 + frase in testo normale nello stesso blocco; didascalie di I Piatti in <p> ---------- */
+.home-h1 h1, .locale-h1 h1, .piatti-h1 h1, .contatti-h1 h1 { font-size: inherit; }
+.contatti-h1 p { font-size: 16px; }
+.vista-foto p.fk { position: absolute; left: calc(100% - 428px); top: 130px; width: 308px; font-size: 34px; line-height: 51px; }
+/* teste più lunghe: spazio in più (Gabriele, 29/10) — la foto della home scende; Chi Sono si allarga fino alla foto accanto;
+   dove la testa non sta sopra la fascia blu, fascia e contenuto scendono insieme (margin-top) e il corpo si allunga di altrettanto */
+.home-foto-hero { top: 365px; }
+.chi-h1 { width: 560px; }
+.chi-corpo .banda, .chi-corpo .contenitore > :not(.chi-h1) { margin-top: 126px; }
+.chi-corpo, .chi-corpo .contenitore { height: 1903px; }
+.locale-h1 { width: 560px; }
+@media (max-width: 767px) {
+  .contatti-h1 p { font-size: 15px; }
+  .vista-foto p.fk { position: static; width: 280px; margin: 20px 20px 0; white-space: pre-wrap; }
+  .home-foto-hero { top: 332px; }
+  .chi-h1 { left: 20px; width: 280px; }
+  .chi-corpo .banda, .chi-corpo .contenitore > :not(.chi-h1) { margin-top: 67px; }
+  .chi-corpo, .chi-corpo .contenitore { height: 2196.7px; }
+  .locale-h1 { left: 20px; width: 280px; }
+  .locale-corpo .banda, .locale-corpo .contenitore > :not(.locale-h1) { margin-top: 33px; }
+  .locale-corpo, .locale-corpo .contenitore { height: 2691px; }
+  .menu-h1b { top: 143px; }
+  .menu-corpo .banda, .menu-galleria { margin-top: 55px; }
+  .menu-corpo, .menu-corpo .contenitore { height: 654px; }
+}
+
+/* ---------- mappa di Google nel footer (Gabriele, 29/10) ---------- */
+/* un solo elemento, dentro il NAP: a computer esce dal NAP e va nella colonna "Prenota un tavolo", sotto le icone, allineata a sinistra al titolo (398 px); a telefono resta fra il nome e l'indirizzo */
+.piede-mappa { position: absolute; left: -340px; top: 150px; width: 208px; height: 130px; }
+.piede-mappa iframe { display: block; width: 100%; height: 100%; border: 0; }
+@media (max-width: 767px) {
+  .piede-mappa { position: static; width: 300px; height: 150px; margin-bottom: 21px; }
+  .piede-nap .nap-via { display: inline; font-size: 14px; line-height: 21px; }
+  .piede, .piede .contenitore { height: 739px; }
+  .copyright { top: 669px; }
+}
+
+/* ---------- fase 2.4 anticipo 29/10 — round 1 degli H1 (Gabriele, 30/10): i 6 H1 interni allo stesso font, peso, colore e misura (45 a computer, 24 a telefono), tutti al centro del loro blocco;
+   La mia Cucina un gradino sotto a computer (40, così sta su 2 righe). Dove la testa cresce verso la fascia, fascia e contenuto scendono di altrettanto (stessa tecnica del 29/10) ---------- */
+.chi-h1, .cucina-h1, .locale-h1, .piatti-h1, .menu-h1a, .contatti-h1 { text-align: center; }
+.cucina-h1, .piatti-h1, .contatti-h1 { left: -40px; width: 560px; }
+.cucina-h1 { font-size: 40px; }
+.contatti-h1, .piatti-h1 h1, .menu-h1a, .menu-h1a .grande { font-size: 45px; }
+.piatti-h1 h1 { line-height: 1.4em; }
+.piatti-h1 h1 span { font-size: 40px; } /* nome del locale su una riga sola: H1 su 2 righe (Gabriele, 30/10) */
+.cucina-corpo .banda, .cucina-corpo .contenitore > :not(.cucina-h1) { margin-top: 28px; }
+.cucina-corpo, .cucina-corpo .contenitore { height: 1955px; }
+.menu-corpo .banda, .menu-galleria { margin-top: 31px; }
+.menu-corpo, .menu-corpo .contenitore { height: 1683px; }
+@media (max-width: 767px) {
+  .cucina-h1, .piatti-h1, .menu-h1a, .contatti-h1 { left: 20px; width: 280px; }
+  .cucina-h1, .contatti-h1, .piatti-h1 h1, .menu-h1a, .menu-h1a .grande { font-size: 24px; }
+  .cucina-corpo .banda, .cucina-corpo .contenitore > :not(.cucina-h1) { margin-top: 53px; }
+  .cucina-corpo, .cucina-corpo .contenitore { height: 2773px; }
+  .piatti-h1 h1 span { font-size: 20px; }
+  .piatti-corpo .banda, .piatti-corpo .contenitore > :not(.piatti-h1) { margin-top: 3px; }
+  .piatti-corpo, .piatti-corpo .contenitore { height: 4475.4px; }
+  .menu-h1b { margin-top: 18px; }
+  .menu-corpo .banda, .menu-galleria { margin-top: 73px; }
+  .menu-corpo, .menu-corpo .contenitore { height: 672px; }
+  .contatti-corpo .banda, .contatti-corpo .contenitore > :not(.contatti-h1) { margin-top: 17px; }
+  .contatti-corpo, .contatti-corpo .contenitore { height: 1945px; }
+}
