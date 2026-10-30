@@ -656,3 +656,25 @@ picture { display: contents; }
   .contatti-corpo .banda, .contatti-corpo .contenitore > :not(.contatti-h1) { margin-top: 17px; }
   .contatti-corpo, .contatti-corpo .contenitore { height: 1945px; }
 }
+
+/* ---------- fase 2.4 anticipo 29/10 — I Piatti, 30/10 (Gabriele): escono tris di tartare, tartara con peperoncino e trilogia; entrano ricciola e tartara di ricciola,
+   la pastiera sale al posto della trilogia. La galleria perde l'ultima riga: 28 → 27 foto, corpo e fascia blu si accorciano di altrettanto ---------- */
+.galleria { height: 4655px; }
+.piatti-corpo, .piatti-corpo .contenitore { height: 5545px; }
+.piatti-corpo .banda { height: 5018px; }
+@media (max-width: 767px) {
+  .galleria { height: 3751.4px; }
+  .piatti-corpo, .piatti-corpo .contenitore { height: 4251.5px; }
+  .piatti-corpo .banda { height: 4071.4px; }
+}
+
+/* ---------- fase 2.4 anticipo 29/10 — Il Menu, 30/10 (Gabriele): immagine del menu nuova (1333×2715, più alta della precedente 1333×1884):
+   il riquadro segue l'altezza dell'immagine e il corpo cresce di altrettanto ---------- */
+.menu-galleria, .menu-voce { height: 1805px; }
+.menu-scorri { height: 1815px; }
+.menu-corpo, .menu-corpo .contenitore { height: 2235px; }
+@media (max-width: 767px) {
+  .menu-galleria, .menu-voce { height: 509px; }
+  .menu-scorri { height: 519px; }
+  .menu-corpo, .menu-corpo .contenitore { height: 827px; }
+}
