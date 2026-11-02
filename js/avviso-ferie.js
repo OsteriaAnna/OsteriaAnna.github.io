@@ -1,7 +1,7 @@
 /* Avviso "Gentile cliente, siamo chiusi per ferie" (Gabriele, 01/11/2026, copy di Gabriele). Si mostra a ogni apertura di pagina fino alla fine
-   dell'8 novembre 2026 (ora italiana), poi smette da solo. Per toglierlo: cancellare questo file e il suo <script>. */
+   del 10 novembre 2026 (ora italiana), poi smette da solo. Per toglierlo: cancellare questo file e il suo <script>. */
 (function () {
-  if (Date.now() >= Date.parse('2026-11-09T00:00:00+01:00')) return;
+  if (Date.now() >= Date.parse('2026-11-11T00:00:00+01:00')) return;
 
   var css = ''
     + '.ferie{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:24px;'
@@ -37,8 +37,8 @@
     + '<img class="ferie-logo" src="/img/f4c59d_f3e3ba00640a411fac362ad917c9c6fc~mv2_378x210.jpg" width="189" height="105" alt="Cappello da cuoco, logo del Ristorante Osteria da Anna">'
     + '<p class="ferie-titolo" id="ferie-titolo">Gentile cliente,<br class="ferie-solo-tel"> siamo chiusi per&nbsp;ferie</p>'
     + '<div class="ferie-linea"></div>'
-    + '<p class="ferie-testo font-testo">Il ristorante rimarrà<br class="ferie-solo-tel"> chiuso per&nbsp;ferie<br><strong class="ferie-una-riga">dal 2 all\'8 novembre</strong>.</p>'
-    + '<p class="ferie-riapro">Vi aspettiamo da lunedì&nbsp;9&nbsp;novembre.</p>'
+    + '<p class="ferie-testo font-testo">Il ristorante rimarrà<br class="ferie-solo-tel"> chiuso per&nbsp;ferie<br><strong class="ferie-una-riga">dal 2 al 10 novembre</strong>.</p>'
+    + '<p class="ferie-riapro">Vi aspettiamo da mercoledì&nbsp;11&nbsp;novembre.</p>'
     + '<button type="button" class="ferie-ok">HO CAPITO</button>'
     + '</div>';
 
