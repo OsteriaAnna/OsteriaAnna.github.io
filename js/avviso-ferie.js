@@ -39,7 +39,7 @@
     + '<div class="ferie-linea"></div>'
     + '<p class="ferie-testo font-testo">Il ristorante rimarrà<br class="ferie-solo-tel"> chiuso per&nbsp;ferie<br><strong class="ferie-una-riga">dal 2 al 10 novembre</strong>.</p>'
     + '<p class="ferie-riapro">Vi aspettiamo da mercoledì&nbsp;11&nbsp;novembre.</p>'
-    + '<button type="button" class="ferie-ok">HO CAPITO</button>'
+    + '<button type="button" class="ferie-ok">VAI AL SITO</button>'
     + '</div>';
 
   function chiudi() {
