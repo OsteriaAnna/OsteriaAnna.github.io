@@ -1,0 +1,504 @@
+/* Osteria da Anna — stile nuovo di tutto il sito (nato con la home, fase 2-bis.1, 12/11/2026; condiviso dal 13/11).
+   Fonte: DESIGN-BRIEF.md Parte A + tavola design/tavola-home-B-2026-11-12.dc.html (dove divergono vale la tavola).
+   Lo caricano tutte le pagine; i componenti che servono solo alle pagine interne stanno in pagine.css.
+   Breakpoint: telefono < 768, tablet 768–1023, computer >= 1024 (DESIGN-BRIEF §6). */
+
+/* ---------- Font (dal sito, mai dai server di Google) ---------- */
+@font-face { font-family: "Cormorant Garamond"; src: url("../fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Parisienne"; src: url("../fonts/parisienne-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+
+/* ---------- Colori (DESIGN-BRIEF §3; gli ultimi tre vengono dalla tavola) ---------- */
+:root {
+  --blu: #002558;
+  --bianco: #FFFFFF;
+  --oro: #B89858;
+  --arancio: #B85423;
+  --arancio-scuro: #9C461C;
+  --crema: #FBF6EA;        /* tavola: corsivi del riquadro della hero */
+  --blu-notte: #001C44;    /* tavola: fondo della cornice della mappa */
+  --blu-tenue: #3D5478;    /* tavola: firma delle recensioni */
+  --curva: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --testata: 76px;
+}
+
+/* ---------- Base ---------- */
+html { scroll-padding-top: var(--testata); }
+body { margin: 0; position: relative; overflow-x: hidden; background: var(--bianco); color: var(--blu); font-size: 17px; line-height: 1.6; -webkit-text-size-adjust: 100%; }
+body strong { font-weight: normal; font-variation-settings: "wght" 600, "wdth" 101.75, "YTLC" 464, "opsz" 12; }
+h1, h2, p { margin: 0; }
+img, video, iframe { display: block; }
+a { color: inherit; }
+.nascosto { position: absolute; width: 0; height: 0; overflow: hidden; }
+.fascia-blu { --anello: var(--bianco); background: var(--blu); color: var(--bianco); }
+.fascia-bianca { --anello: var(--blu); background: var(--bianco); color: var(--blu); }
+:focus-visible { outline: 2px solid var(--anello, var(--blu)); outline-offset: 3px; }
+#principale:focus { outline: none; }
+.salta { position: absolute; top: 60px; left: 50%; margin-left: -94px; z-index: 9999; width: 0; height: 0; padding: 0 24px; border: 0; border-radius: 24px; background: #FFFFFF; color: rgb(17, 109, 255); font-family: Helvetica, Arial, sans-serif; font-size: 14px; white-space: nowrap; opacity: 0; pointer-events: none; cursor: pointer; }
+.salta:focus { opacity: 1; pointer-events: auto; border: 2px solid; width: auto; height: 40px; }
+
+.contenuto { position: relative; z-index: 3; max-width: 1140px; margin: 0 auto; padding: 0 24px; box-sizing: border-box; }
+.titolo { font-family: "Cormorant Garamond", serif; font-weight: 500; }
+.h1 { margin: 0; font-size: 52px; line-height: 1.1; }
+.h2 { margin: 0; font-size: 36px; line-height: 1.15; }
+.occhiello { margin-bottom: 16px; font-size: 12px; line-height: 1.3; letter-spacing: .16em; text-transform: uppercase; }
+.fascia-blu .occhiello { color: var(--oro); }
+.corsivo { margin-top: 24px; font-family: "Parisienne", cursive; font-size: 30px; line-height: 1.2; color: var(--oro); }
+.corsivo-titolo { font-family: "Parisienne", cursive; font-weight: 400; font-size: 1.3em; line-height: 1; color: var(--oro); }
+.linea-oro { width: 64px; height: 1px; margin: 24px 0; border: 0; background: var(--oro); }
+.misura { max-width: 34em; }
+.misura + .misura { margin-top: 12px; }
+.s-ricerca .misura + .misura { margin-top: 16px; }
+.misura.spazio-sopra { margin-top: 24px; }
+.testo-link { text-decoration: underline; text-decoration-color: var(--oro); text-underline-offset: 4px; }
+.icona-linea { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Bottoni (DESIGN-BRIEF §9; pillola della tavola) ---------- */
+.bottone { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 24px; box-sizing: border-box; border: 1px solid; border-radius: 999px; font-size: 16px; letter-spacing: .1em; text-decoration: none; cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; }
+.colonna-testo > .bottone { margin-top: 40px; }
+.s-ricerca .colonna-testo > .bottone { margin-top: 32px; }
+.cta { background: var(--arancio); border-color: var(--arancio); color: var(--bianco); }
+.cta:hover { background: var(--arancio-scuro); border-color: var(--arancio-scuro); }
+.secondario { background: transparent; border-color: currentColor; }
+.fascia-blu .secondario:hover { background: var(--bianco); color: var(--blu); }
+.fascia-bianca .secondario:hover { background: var(--blu); border-color: var(--blu); color: var(--bianco); }
+
+/* ---------- Onde fra le fasce (due onde sovrapposte in sensi opposti; 13/11: ampiezza +25% nei tracciati di index.html, velocità +20%: 26 → 21 s, 38 → 30 s) ---------- */
+.onda-bordo { position: absolute; left: 0; right: 0; top: -27px; height: 28px; overflow: hidden; z-index: 2; pointer-events: none; }
+.fascia-blu > .onda-bordo { color: var(--blu); }
+.fascia-bianca > .onda-bordo { color: var(--bianco); }
+.onda-bordo svg { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; }
+.onda-fronte { animation: onda-scorre 21s linear infinite; }
+.onda-dietro { animation: onda-scorre 30s linear infinite reverse; }
+@keyframes onda-scorre { to { transform: translateX(-50%); } }
+
+/* ---------- Testata ---------- */
+.testata { position: sticky; top: 0; z-index: 10; height: var(--testata); border-bottom: 1px solid rgba(184, 152, 88, .5); }
+.testata-riga { display: flex; align-items: center; gap: 40px; height: 100%; max-width: 1320px; }
+.testata-logo { flex: none; }
+.testata-logo img { width: auto; height: 50px; }
+.nav { display: flex; gap: 32px; margin-left: auto; font-size: 15px; letter-spacing: .06em; }
+.nav a { padding: 6px 0; border-bottom: 1px solid transparent; text-decoration: none; transition: border-color 150ms ease-out; }
+.nav a:hover, .nav a[aria-current="page"] { border-bottom-color: var(--oro); }
+.testata-cerca { flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: transparent; color: var(--bianco); cursor: pointer; }
+.testata-cerca svg { display: block; margin: auto; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
+.testata-chiama { flex: none; }
+.menu-tel-apri { display: none; }
+
+/* ---------- 1. Hero ---------- */
+.hero { position: relative; height: max(600px, 100vh); height: max(600px, 100svh); margin-top: calc(-1 * var(--testata)); padding-top: var(--testata); box-sizing: border-box; overflow: hidden; }
+.hero-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+.hero-velo { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,37,88,.60) 0%, rgba(0,37,88,.52) 28%, rgba(0,37,88,.23) 52%, rgba(0,37,88,0) 68%); }   /* 13/11: un terzo più leggero (Gabriele); contrasto del testo bianco più basso: deroga voluta */
+.hero-griglia { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 64px; align-items: center; height: 100%; }
+.hero-testo { max-width: 560px; }
+.hero-frasi { font-size: 19px; line-height: 1.7; }
+.hero-testo .bottone { margin-top: 36px; }
+.riquadro { position: relative; padding: 48px 40px 40px; box-sizing: border-box; text-align: center; border: 1px solid rgba(184, 152, 88, .55); background: rgba(0, 30, 72, .84); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); box-shadow: 0 24px 48px rgba(0, 10, 30, .35); }
+.riquadro::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 152, 88, .85); pointer-events: none; }
+.riquadro-corsivo { margin-top: 28px; font-family: "Parisienne", cursive; font-size: 34px; line-height: 1.25; color: var(--crema); }
+.riquadro-maiuscolo { margin-top: 18px; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 17px; letter-spacing: .24em; color: var(--oro); }
+.riquadro-chef { margin-top: 10px; font-family: "Parisienne", cursive; font-size: 26px; line-height: 1.2; color: var(--crema); }
+.riquadro-via { margin-top: 22px; font-size: 12px; letter-spacing: .3em; }
+/* Computer: il riquadro si stringe se lo schermo è basso (round 1b), così si vede intero anche a 1366×650 */
+@media (min-width: 1024px) {
+  .riquadro { padding: clamp(24px, 5.5vh, 48px) 40px clamp(20px, 4.5vh, 40px); }
+  .cappello { width: clamp(130px, 25vh, 230px); }
+  .riquadro-corsivo { margin-top: clamp(12px, 3vh, 28px); font-size: clamp(24px, 4vh, 34px); }
+  .riquadro-maiuscolo { margin-top: clamp(8px, 2vh, 18px); }
+  .riquadro-chef { font-size: clamp(19px, 3vh, 26px); }
+  .riquadro-via { margin-top: clamp(10px, 2.5vh, 22px); }
+}
+/* Cappello che si disegna: i tracciati della tavola sono i due bordi di ogni linea del logo. Due matite insieme (13/11):
+   data-matita="1" la parte di sopra, data-matita="2" il riquadro di "DA ANNA"; ogni matita fa i suoi tratti uno dopo l'altro
+   (home.js, ~2 s in tutto), poi il riempimento (.cappello-pieno, evenodd) e "DA ANNA".
+   Senza JS o con movimento ridotto il cappello è già disegnato.
+   13/11: la stessa regola vale per i tre cappelli che si disegnano (.si-disegna): hero, angolo della foto di Anna, logo del footer. */
+.cappello { display: block; width: 230px; height: auto; margin: 0 auto; overflow: visible; }
+.si-disegna .tratto { fill: none; stroke: var(--oro); stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke-linecap: round; stroke-linejoin: round; }
+.cappello-pieno { fill: var(--oro); }
+.cappello-scritta { font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 96px; letter-spacing: 18px; fill: var(--oro); }
+.js .si-disegna:not(.disegnato) .tratto { stroke-opacity: 0; }
+.js .si-disegna:not(.disegnato) .cappello-pieno, .js .si-disegna:not(.disegnato) .cappello-scritta { opacity: 0; }
+
+/* ---------- Sezioni a fasce ---------- */
+.sezione { position: relative; padding: 96px 0; }
+.griglia { display: grid; gap: 96px; align-items: start; }
+.griglia-dx { grid-template-columns: minmax(0, 1fr) 440px; }
+.griglia-sx { grid-template-columns: 440px minmax(0, 1fr); }
+.griglia-centro { align-items: center; }
+.s-filosofia .colonna-testo { padding-top: 32px; }
+.s-ricerca .colonna-testo { padding-top: 48px; }
+.cornice-foto { position: relative; z-index: 2; height: 560px; outline: 1px solid rgba(184, 152, 88, .9); outline-offset: 7px; }
+.foto { width: 100%; height: 100%; object-fit: cover; }
+.foto-sporge-sotto { margin-bottom: -144px; }   /* sporge di 48 px nella fascia sotto (DESIGN-BRIEF §7) */
+.foto-sporge-sopra { margin-top: -144px; }      /* sporge di 48 px nella fascia sopra */
+.foto-bassa { height: 400px; }
+
+/* Video della home: in loop al posto della foto; clic o Invio = pausa/riprendi (comportamento di sito.js) */
+.video-box { overflow: visible; cursor: pointer; }
+.video-box img, .video-box video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.video-box[data-pronto] img { opacity: 0; }
+.video-pausa, .video-play { position: absolute; left: 50%; top: 50%; width: 82px; height: 82px; margin: -41px 0 0 -41px; opacity: 0; pointer-events: none; transition: opacity 150ms ease-out; }
+.video-pausa svg, .video-play svg { width: 100%; height: 100%; }
+.video-pausa rect { fill: var(--bianco); }
+.video-box:not([data-playing]) .video-play { opacity: 1; }
+.video-box[data-playing][data-roll-in] .video-pausa, .video-box[data-playing]:focus-visible .video-pausa { opacity: 1; }
+
+/* ---------- 5. Recensioni ---------- */
+.s-recensioni { padding: 72px 0 64px; }
+.rec-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 32px; }
+.rec-riepilogo { display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.rec-voto { display: flex; align-items: center; gap: 10px; }
+.rec-media { font-size: 32px; line-height: 1; }
+.rec-totale { font-size: 14px; }
+.stelle { display: inline-flex; gap: 2px; }
+.stelle svg { width: 16px; height: 16px; fill: var(--oro); }
+.rec-comandi { display: flex; align-items: center; gap: 12px; }
+.rec-comandi .testo-link { margin-right: 12px; font-size: 15px; }
+.freccia { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--blu); border-radius: 999px; background: transparent; color: var(--blu); cursor: pointer; transition: background-color 150ms ease-out, border-color 150ms ease-out; }
+.freccia:hover { background: var(--oro); border-color: var(--oro); }
+.rec-finestra { margin-top: 32px; overflow: hidden; }
+.rec-binario { display: flex; gap: 24px; align-items: stretch; }
+.recensione { flex: 0 0 calc((100% - 48px) / 3); display: flex; flex-direction: column; gap: 10px; padding: 22px 24px; box-sizing: border-box; border: 1px solid rgba(0, 37, 88, .16); border-radius: 16px; background: var(--bianco); transition: opacity 450ms ease-out; }
+.recensione.esce { opacity: 0; }
+.recensione-testo { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-line; font-size: 15.5px; line-height: 1.55; }
+.recensione-firma { margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(184, 152, 88, .6); font-size: 14px; color: var(--blu-tenue); }
+.recensione-firma strong { color: var(--blu); }
+
+/* ---------- 6. Dove siamo ---------- */
+.griglia-zona { grid-template-columns: minmax(0, 1fr) 560px; gap: 80px; }
+.pillole { display: flex; flex-wrap: wrap; gap: 12px; margin: 36px 0 0; padding: 0; list-style: none; }
+.pillola { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; box-sizing: border-box; border: 1px solid rgba(255, 255, 255, .85); border-radius: 999px; font-size: 15px; letter-spacing: .04em; }
+.pillola span { color: var(--oro); }
+/* Mappa di Google con la cornice delle foto (filo oro a 7 px; Gabriele, 13/11 sera): qui è un'ombra piena, così l'anello blu
+   copre la rosa dei venti, che sta sotto l'angolo in alto a sinistra e si vede solo fuori dalla cornice */
+.mappa { position: relative; box-shadow: 0 0 0 7px var(--blu), 0 0 0 8px rgba(184, 152, 88, .9); }
+.mappa iframe { width: 100%; height: 420px; border: 0; }
+
+/* ---------- 7. Domande frequenti: <details>, ancora che scende con la catena ---------- */
+.griglia-faq { grid-template-columns: 360px minmax(0, 1fr); }
+/* Cappello del logo indossato dall'angolo della foto di Anna: stessi tracciati del logo, con "DA ANNA" (13/11); lo spigolo
+   della cornice oro (7 px fuori dalla foto) entra nella fascia, vicino al bordo di sotto; inclinato di 15°, ombra morbida */
+.cappello-foto { position: absolute; z-index: 3; top: -67px; right: -54px; width: 80px; height: 68px; line-height: 0; pointer-events: none; transform: rotate(15deg); filter: drop-shadow(2px 5px 5px rgba(0, 10, 30, .35)); }
+.cappello-foto svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cappello-foto .sagoma { fill: var(--blu); }   /* il cappello copre lo spigolo della cornice, come un oggetto posato */
+.cappello-foto .cappello-pieno { fill: var(--oro); stroke: var(--oro); stroke-width: 1.3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }   /* a 80 px i nastri del logo sono sotto 1 px: il filo li porta allo spessore del logo nel footer */
+.cappello-foto .tratto { stroke-width: 1.3px; }   /* 13/11: si disegna anche lui quando arriva a schermo (home.js); la sagoma blu c'è dall'inizio */
+/* Rosa dei venti: piccola, a linea, SOTTO la mappa (z-index -1): si vede solo la parte fuori dalla cornice */
+.rosa-venti { position: absolute; z-index: -1; top: -36px; left: -36px; width: 56px; height: 56px; line-height: 0; pointer-events: none; }
+.rosa-venti svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: var(--oro); stroke-width: 1px; stroke-linejoin: round; }
+.rosa-venti path, .rosa-venti circle { vector-effect: non-scaling-stroke; }
+/* Conchiglia in 3D (home.js la disegna), rivolta a sinistra: nella colonna di testo della sezione La cucina, a destra sulla riga
+   del bottone "La mia Cucina" (finale 12/11). La valva di sopra, aprendosi, sale in alto a destra, nello spazio libero accanto a "Buona degustazione." */
+.conchiglia { position: absolute; right: 0; bottom: 0; z-index: 1; width: 90px; line-height: 0; pointer-events: none; }
+.s-ricerca .colonna-testo, .con-conchiglia { position: relative; }
+.conchiglia-var { transform: scaleX(-1); }
+.conchiglia-var { display: block; width: 100%; height: auto; overflow: visible; fill: none; stroke: var(--oro); stroke-width: 1.3px; stroke-linecap: round; stroke-linejoin: round; }
+.conchiglia-var path, .conchiglia-var circle { vector-effect: non-scaling-stroke; }
+.conchiglia .fuori { fill: var(--bianco); }
+.conchiglia .dentro { fill: var(--crema); }
+.conchiglia .segni { stroke-width: .8px; opacity: .7; }
+.conchiglia .segni.tenui { opacity: .35; }
+.conchiglia .mollusco { fill: #F4DCD5; }          /* rosato tenue (variante B scelta da Gabriele, 12/11) */
+.conchiglia .frangia { stroke-width: 1px; }
+.conchiglia .perla { fill: var(--crema); stroke-width: .8px; }
+.conchiglia .perla-luce { fill: var(--bianco); stroke: none; }
+.faq details { position: relative; border-bottom: 1px solid rgba(0, 37, 88, .18); cursor: pointer; }   /* 13/11: tutta la riga fra le due linee apre e chiude (home.js) */
+.faq details.scorre { overflow: hidden; }   /* mentre l'altezza si apre o si chiude */
+.faq summary { display: block; padding: 24px 64px 24px 0; list-style: none; cursor: pointer; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 24px; line-height: 1.2; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq details p { max-width: 40em; margin: 0 64px 28px 0; }
+.faq a { text-decoration: underline; text-decoration-color: var(--oro); text-underline-offset: 4px; }
+/* 13/11 pomeriggio (Gabriele): a domanda chiusa l'ancora è il 30% più piccola (28 px); al clic cresce fino a 40 px mentre scende e fa partire la catena */
+.ancora-faq { position: absolute; right: 0; top: 20px; z-index: 1; width: 40px; height: 40px; pointer-events: none; transform: scale(.7); transform-origin: 100% 50%; transition: top 800ms cubic-bezier(0.3, 0.7, 0.25, 1), transform 800ms cubic-bezier(0.3, 0.7, 0.25, 1); }
+.ancora-faq svg { display: block; width: 40px; height: 40px; fill: none; stroke: var(--oro); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.catena { position: absolute; right: 14px; top: 26px; width: 12px; height: 0; overflow: hidden; pointer-events: none; transition: height 800ms cubic-bezier(0.3, 0.7, 0.25, 1); }
+.catena svg { display: block; width: 12px; height: 100%; }
+.faq details[open] .ancora-faq { top: max(20px, calc(100% - 66px)); }
+.faq details[open]:not(.si-chiude) .ancora-faq { transform: none; }   /* mentre si chiude torna piccola */
+.faq details[open] .catena { height: calc(100% - 86px); }
+.faq details.scorre .ancora-faq { transition: transform 800ms cubic-bezier(0.3, 0.7, 0.25, 1); }   /* durante l'apertura graduale segue il bordo di sotto, che ha già la curva; la misura cambia con la stessa curva */
+.faq details.scorre .catena { transition: none; }
+
+/* ---------- 8. Prenota ---------- */
+.s-prenota { padding: 32px 0 128px; }
+.linea-sezione { height: 1px; margin-bottom: 96px; background: var(--oro); opacity: .6; }
+.s-prenota .corsivo { margin-top: 20px; }
+.bottoni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+
+/* ---------- Footer ---------- */
+.piede { position: relative; padding: 80px 0 32px; font-size: 15px; }
+.piede-griglia { display: grid; grid-template-columns: auto 220px minmax(0, 1fr) minmax(0, 1.2fr); gap: 48px; align-items: start; }
+.piede-logo { display: block; width: 128px; height: auto; overflow: visible; }   /* 13/11: SVG del cappello della hero, si disegna quando arriva a schermo */
+.piede-titolo { margin-bottom: 20px; font-size: 24px; }
+.piede-icone { display: flex; gap: 12px; }
+.icona-tonda { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 1px solid var(--bianco); border-radius: 999px; transition: background-color 150ms ease-out, color 150ms ease-out; }
+.icona-tonda:hover { background: var(--bianco); color: var(--blu); }
+.piede-nome { margin-bottom: 12px; font-size: 22px; line-height: 1.3; }
+.piede-nap p + p { margin-top: 12px; }
+.piede-nap a { text-decoration: none; }
+.piede-nap a:hover { text-decoration: underline; text-decoration-color: var(--oro); }
+.piede-orari p + p { margin-top: 0; }
+.copyright { margin-top: 64px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18); font-size: 14px; color: rgba(255, 255, 255, .8); }
+
+/* ---------- Icone animate (una classe per icona, posizione per sezione) ---------- */
+.deco { position: absolute; z-index: 1; pointer-events: none; }
+/* Calici (13/11, file di Design): brindano e il vino oscilla, tutti insieme in 3,4 s (regole e keyframes copiati identici dal file) */
+.cincin { width: 150px; height: 100px; }
+.cincin svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: var(--oro); stroke-width: .8; stroke-linecap: round; stroke-linejoin: round; }
+.cincin .calice-sx, .cincin .calice-dx, .cincin .vino-sx, .cincin .vino-dx { transform-box: view-box; }
+.cincin .calice-sx { transform-origin: 13px 28.1px; animation: brindisi-sx 3.4s linear infinite; }
+.cincin .calice-dx { transform-origin: 35px 28.1px; animation: brindisi-dx 3.4s linear infinite; }
+.cincin .vino-sx { transform-origin: 13px 12.6px; animation: vino-sx 3.4s linear infinite; }
+.cincin .vino-dx { transform-origin: 35px 12.6px; animation: vino-dx 3.4s linear infinite; }
+.cincin .scintilla-nuova { opacity: 0; animation: scintilla-nuova 3.4s linear infinite; }
+@keyframes brindisi-sx { 0% { transform: rotate(0.00deg); } 1.5% { transform: rotate(0.03deg); } 2.5% { transform: rotate(0.13deg); } 3.5% { transform: rotate(0.33deg); } 4.25% { transform: rotate(0.57deg); } 5.25% { transform: rotate(1.01deg); } 6% { transform: rotate(1.44deg); } 6.75% { transform: rotate(1.95deg); } 7.75% { transform: rotate(2.77deg); } 8.5% { transform: rotate(3.48deg); } 9.25% { transform: rotate(4.26deg); } 10.75% { transform: rotate(6.02deg); } 12.5% { transform: rotate(8.33deg); } 15.25% { transform: rotate(12.16deg); } 16.5% { transform: rotate(13.86deg); } 17.75% { transform: rotate(15.45deg); } 19% { transform: rotate(16.90deg); } 20% { transform: rotate(16.42deg); } 22.75% { transform: rotate(14.89deg); } 24% { transform: rotate(14.29deg); } 25.5% { transform: rotate(13.74deg); } 26.25% { transform: rotate(13.55deg); } 27.25% { transform: rotate(13.36deg); } 28.5% { transform: rotate(13.25deg); } 30% { transform: rotate(13.24deg); } 31.5% { transform: rotate(13.32deg); } 37.25% { transform: rotate(13.79deg); } 39.5% { transform: rotate(13.87deg); } 42% { transform: rotate(13.88deg); } 43.75% { transform: rotate(13.81deg); } 45.25% { transform: rotate(13.65deg); } 46.5% { transform: rotate(13.41deg); } 47.75% { transform: rotate(13.05deg); } 49% { transform: rotate(12.54deg); } 50% { transform: rotate(12.03deg); } 51% { transform: rotate(11.41deg); } 52.25% { transform: rotate(10.52deg); } 53.25% { transform: rotate(9.71deg); } 54.25% { transform: rotate(8.84deg); } 58.75% { transform: rotate(4.72deg); } 60% { transform: rotate(3.69deg); } 61.25% { transform: rotate(2.78deg); } 62.5% { transform: rotate(2.02deg); } 63.75% { transform: rotate(1.41deg); } 65% { transform: rotate(0.94deg); } 66.5% { transform: rotate(0.54deg); } 67.75% { transform: rotate(0.32deg); } 69.25% { transform: rotate(0.14deg); } 71% { transform: rotate(0.03deg); } 73% { transform: rotate(-0.03deg); } 100% { transform: rotate(0.00deg); } }
+@keyframes brindisi-dx { 0% { transform: rotate(-0.00deg); } 1.5% { transform: rotate(-0.03deg); } 2.5% { transform: rotate(-0.13deg); } 3.5% { transform: rotate(-0.33deg); } 4.25% { transform: rotate(-0.57deg); } 5.25% { transform: rotate(-1.01deg); } 6% { transform: rotate(-1.44deg); } 6.75% { transform: rotate(-1.95deg); } 7.75% { transform: rotate(-2.77deg); } 8.5% { transform: rotate(-3.48deg); } 9.25% { transform: rotate(-4.26deg); } 10.75% { transform: rotate(-6.02deg); } 12.5% { transform: rotate(-8.33deg); } 15.25% { transform: rotate(-12.16deg); } 16.5% { transform: rotate(-13.86deg); } 17.75% { transform: rotate(-15.45deg); } 19% { transform: rotate(-16.90deg); } 20% { transform: rotate(-16.42deg); } 22.75% { transform: rotate(-14.89deg); } 24% { transform: rotate(-14.29deg); } 25.5% { transform: rotate(-13.74deg); } 26.25% { transform: rotate(-13.55deg); } 27.25% { transform: rotate(-13.36deg); } 28.5% { transform: rotate(-13.25deg); } 30% { transform: rotate(-13.24deg); } 31.5% { transform: rotate(-13.32deg); } 37.25% { transform: rotate(-13.79deg); } 39.5% { transform: rotate(-13.87deg); } 42% { transform: rotate(-13.88deg); } 43.75% { transform: rotate(-13.81deg); } 45.25% { transform: rotate(-13.65deg); } 46.5% { transform: rotate(-13.41deg); } 47.75% { transform: rotate(-13.05deg); } 49% { transform: rotate(-12.54deg); } 50% { transform: rotate(-12.03deg); } 51% { transform: rotate(-11.41deg); } 52.25% { transform: rotate(-10.52deg); } 53.25% { transform: rotate(-9.71deg); } 54.25% { transform: rotate(-8.84deg); } 58.75% { transform: rotate(-4.72deg); } 60% { transform: rotate(-3.69deg); } 61.25% { transform: rotate(-2.78deg); } 62.5% { transform: rotate(-2.02deg); } 63.75% { transform: rotate(-1.41deg); } 65% { transform: rotate(-0.94deg); } 66.5% { transform: rotate(-0.54deg); } 67.75% { transform: rotate(-0.32deg); } 69.25% { transform: rotate(-0.14deg); } 71% { transform: rotate(-0.03deg); } 73% { transform: rotate(0.03deg); } 100% { transform: rotate(-0.00deg); } }
+@keyframes vino-sx { 0% { transform: rotate(-0.03deg); } 1% { transform: rotate(0.04deg); } 2% { transform: rotate(0.25deg); } 3% { transform: rotate(0.66deg); } 5% { transform: rotate(1.69deg); } 6% { transform: rotate(1.98deg); } 6.75% { transform: rotate(1.94deg); } 7.25% { transform: rotate(1.77deg); } 7.75% { transform: rotate(1.47deg); } 8.25% { transform: rotate(1.03deg); } 8.75% { transform: rotate(0.45deg); } 9.25% { transform: rotate(-0.26deg); } 9.75% { transform: rotate(-1.10deg); } 10.5% { transform: rotate(-2.54deg); } 11.5% { transform: rotate(-4.74deg); } 14.25% { transform: rotate(-11.20deg); } 15% { transform: rotate(-12.80deg); } 15.75% { transform: rotate(-14.28deg); } 16.5% { transform: rotate(-15.63deg); } 17.25% { transform: rotate(-16.85deg); } 18% { transform: rotate(-17.95deg); } 19% { transform: rotate(-19.26deg); } 19.5% { transform: rotate(-22.40deg); } 19.75% { transform: rotate(-23.80deg); } 20% { transform: rotate(-25.05deg); } 20.25% { transform: rotate(-26.13deg); } 20.5% { transform: rotate(-27.03deg); } 20.75% { transform: rotate(-27.73deg); } 21% { transform: rotate(-28.23deg); } 21.25% { transform: rotate(-28.51deg); } 21.5% { transform: rotate(-28.58deg); } 21.75% { transform: rotate(-28.45deg); } 22% { transform: rotate(-28.10deg); } 22.25% { transform: rotate(-27.56deg); } 22.5% { transform: rotate(-26.83deg); } 22.75% { transform: rotate(-25.93deg); } 23% { transform: rotate(-24.88deg); } 23.25% { transform: rotate(-23.68deg); } 23.75% { transform: rotate(-20.97deg); } 24.25% { transform: rotate(-17.97deg); } 25% { transform: rotate(-13.34deg); } 25.5% { transform: rotate(-10.42deg); } 26% { transform: rotate(-7.82deg); } 26.25% { transform: rotate(-6.68deg); } 26.5% { transform: rotate(-5.67deg); } 26.75% { transform: rotate(-4.79deg); } 27% { transform: rotate(-4.06deg); } 27.25% { transform: rotate(-3.48deg); } 27.5% { transform: rotate(-3.06deg); } 27.75% { transform: rotate(-2.79deg); } 28% { transform: rotate(-2.67deg); } 28.25% { transform: rotate(-2.71deg); } 28.5% { transform: rotate(-2.89deg); } 28.75% { transform: rotate(-3.22deg); } 29% { transform: rotate(-3.67deg); } 29.25% { transform: rotate(-4.24deg); } 29.5% { transform: rotate(-4.91deg); } 29.75% { transform: rotate(-5.68deg); } 30.25% { transform: rotate(-7.43deg); } 31.5% { transform: rotate(-12.40deg); } 32% { transform: rotate(-14.30deg); } 32.5% { transform: rotate(-16.00deg); } 33% { transform: rotate(-17.41deg); } 33.5% { transform: rotate(-18.49deg); } 34% { transform: rotate(-19.18deg); } 34.25% { transform: rotate(-19.39deg); } 34.75% { transform: rotate(-19.51deg); } 35.25% { transform: rotate(-19.29deg); } 35.5% { transform: rotate(-19.05deg); } 36% { transform: rotate(-18.38deg); } 36.75% { transform: rotate(-16.98deg); } 38.5% { transform: rotate(-13.20deg); } 39.25% { transform: rotate(-11.90deg); } 39.75% { transform: rotate(-11.27deg); } 40% { transform: rotate(-11.03deg); } 40.25% { transform: rotate(-10.85deg); } 40.75% { transform: rotate(-10.66deg); } 41% { transform: rotate(-10.64deg); } 41.5% { transform: rotate(-10.78deg); } 42.25% { transform: rotate(-11.34deg); } 43% { transform: rotate(-12.22deg); } 45% { transform: rotate(-15.05deg); } 45.75% { transform: rotate(-15.89deg); } 46.25% { transform: rotate(-16.30deg); } 47% { transform: rotate(-16.64deg); } 47.5% { transform: rotate(-16.68deg); } 48% { transform: rotate(-16.57deg); } 48.75% { transform: rotate(-16.15deg); } 49.5% { transform: rotate(-15.46deg); } 50.25% { transform: rotate(-14.58deg); } 52.75% { transform: rotate(-11.15deg); } 54% { transform: rotate(-9.56deg); } 55% { transform: rotate(-8.42deg); } 58.25% { transform: rotate(-4.92deg); } 61.75% { transform: rotate(-0.72deg); } 62.5% { transform: rotate(0.07deg); } 63.25% { transform: rotate(0.74deg); } 64% { transform: rotate(1.26deg); } 64.75% { transform: rotate(1.58deg); } 65.75% { transform: rotate(1.73deg); } 66.75% { transform: rotate(1.56deg); } 67.5% { transform: rotate(1.29deg); } 70.5% { transform: rotate(-0.09deg); } 71.5% { transform: rotate(-0.35deg); } 72.25% { transform: rotate(-0.43deg); } 73.5% { transform: rotate(-0.36deg); } 76.5% { transform: rotate(0.26deg); } 78.25% { transform: rotate(0.42deg); } 79.5% { transform: rotate(0.36deg); } 82.75% { transform: rotate(-0.12deg); } 84.5% { transform: rotate(-0.25deg); } 86% { transform: rotate(-0.21deg); } 90.75% { transform: rotate(0.15deg); } 96.5% { transform: rotate(-0.08deg); } 100% { transform: rotate(-0.03deg); } }
+@keyframes vino-dx { 0% { transform: rotate(0.03deg); } 1% { transform: rotate(-0.04deg); } 2% { transform: rotate(-0.25deg); } 3% { transform: rotate(-0.66deg); } 5% { transform: rotate(-1.69deg); } 6% { transform: rotate(-1.98deg); } 6.75% { transform: rotate(-1.94deg); } 7.25% { transform: rotate(-1.77deg); } 7.75% { transform: rotate(-1.47deg); } 8.25% { transform: rotate(-1.03deg); } 8.75% { transform: rotate(-0.45deg); } 9.25% { transform: rotate(0.26deg); } 9.75% { transform: rotate(1.10deg); } 10.5% { transform: rotate(2.54deg); } 11.5% { transform: rotate(4.74deg); } 14.25% { transform: rotate(11.20deg); } 15% { transform: rotate(12.80deg); } 15.75% { transform: rotate(14.28deg); } 16.5% { transform: rotate(15.63deg); } 17.25% { transform: rotate(16.85deg); } 18% { transform: rotate(17.95deg); } 19% { transform: rotate(19.26deg); } 19.5% { transform: rotate(22.40deg); } 19.75% { transform: rotate(23.80deg); } 20% { transform: rotate(25.05deg); } 20.25% { transform: rotate(26.13deg); } 20.5% { transform: rotate(27.03deg); } 20.75% { transform: rotate(27.73deg); } 21% { transform: rotate(28.23deg); } 21.25% { transform: rotate(28.51deg); } 21.5% { transform: rotate(28.58deg); } 21.75% { transform: rotate(28.45deg); } 22% { transform: rotate(28.10deg); } 22.25% { transform: rotate(27.56deg); } 22.5% { transform: rotate(26.83deg); } 22.75% { transform: rotate(25.93deg); } 23% { transform: rotate(24.88deg); } 23.25% { transform: rotate(23.68deg); } 23.75% { transform: rotate(20.97deg); } 24.25% { transform: rotate(17.97deg); } 25% { transform: rotate(13.34deg); } 25.5% { transform: rotate(10.42deg); } 26% { transform: rotate(7.82deg); } 26.25% { transform: rotate(6.68deg); } 26.5% { transform: rotate(5.67deg); } 26.75% { transform: rotate(4.79deg); } 27% { transform: rotate(4.06deg); } 27.25% { transform: rotate(3.48deg); } 27.5% { transform: rotate(3.06deg); } 27.75% { transform: rotate(2.79deg); } 28% { transform: rotate(2.67deg); } 28.25% { transform: rotate(2.71deg); } 28.5% { transform: rotate(2.89deg); } 28.75% { transform: rotate(3.22deg); } 29% { transform: rotate(3.67deg); } 29.25% { transform: rotate(4.24deg); } 29.5% { transform: rotate(4.91deg); } 29.75% { transform: rotate(5.68deg); } 30.25% { transform: rotate(7.43deg); } 31.5% { transform: rotate(12.40deg); } 32% { transform: rotate(14.30deg); } 32.5% { transform: rotate(16.00deg); } 33% { transform: rotate(17.41deg); } 33.5% { transform: rotate(18.49deg); } 34% { transform: rotate(19.18deg); } 34.25% { transform: rotate(19.39deg); } 34.75% { transform: rotate(19.51deg); } 35.25% { transform: rotate(19.29deg); } 35.5% { transform: rotate(19.05deg); } 36% { transform: rotate(18.38deg); } 36.75% { transform: rotate(16.98deg); } 38.5% { transform: rotate(13.20deg); } 39.25% { transform: rotate(11.90deg); } 39.75% { transform: rotate(11.27deg); } 40% { transform: rotate(11.03deg); } 40.25% { transform: rotate(10.85deg); } 40.75% { transform: rotate(10.66deg); } 41% { transform: rotate(10.64deg); } 41.5% { transform: rotate(10.78deg); } 42.25% { transform: rotate(11.34deg); } 43% { transform: rotate(12.22deg); } 45% { transform: rotate(15.05deg); } 45.75% { transform: rotate(15.89deg); } 46.25% { transform: rotate(16.30deg); } 47% { transform: rotate(16.64deg); } 47.5% { transform: rotate(16.68deg); } 48% { transform: rotate(16.57deg); } 48.75% { transform: rotate(16.15deg); } 49.5% { transform: rotate(15.46deg); } 50.25% { transform: rotate(14.58deg); } 52.75% { transform: rotate(11.15deg); } 54% { transform: rotate(9.56deg); } 55% { transform: rotate(8.42deg); } 58.25% { transform: rotate(4.92deg); } 61.75% { transform: rotate(0.72deg); } 62.5% { transform: rotate(-0.07deg); } 63.25% { transform: rotate(-0.74deg); } 64% { transform: rotate(-1.26deg); } 64.75% { transform: rotate(-1.58deg); } 65.75% { transform: rotate(-1.73deg); } 66.75% { transform: rotate(-1.56deg); } 67.5% { transform: rotate(-1.29deg); } 70.5% { transform: rotate(0.09deg); } 71.5% { transform: rotate(0.35deg); } 72.25% { transform: rotate(0.43deg); } 73.5% { transform: rotate(0.36deg); } 76.5% { transform: rotate(-0.26deg); } 78.25% { transform: rotate(-0.42deg); } 79.5% { transform: rotate(-0.36deg); } 82.75% { transform: rotate(0.12deg); } 84.5% { transform: rotate(0.25deg); } 86% { transform: rotate(0.21deg); } 90.75% { transform: rotate(-0.15deg); } 96.5% { transform: rotate(0.08deg); } 100% { transform: rotate(0.03deg); } }
+@keyframes scintilla-nuova { 0%, 18.7% { opacity: 0; } 19.6% { opacity: 1; } 23.0% { opacity: .85; } 30.0%, 100% { opacity: 0; } }
+.titolo-riga { display: flex; align-items: center; gap: 24px; }
+.titolo-riga .cincin { flex: none; margin: -30px 0; }   /* non allarga la riga del titolo */
+/* Creature a tempo (home.js): pesci e medusa dentro .acquario, sotto il contenuto (.contenuto ha z-index 3).
+   Tenui come le icone della tavola sul blu: linee bianche al ~18%; sul bianco linee blu al ~12% (lo decide home.js). */
+.acquario { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.pesce, .medusa, .cavalluccio, .polipo { position: absolute; left: 0; top: 0; opacity: 0; will-change: transform, opacity; }
+.medusa, .cavalluccio, .polipo { transition: opacity 500ms ease-out; }   /* compaiono in dissolvenza (stile.js) */
+.sentinella { position: absolute; left: 0; top: 50%; width: 1px; height: 1px; pointer-events: none; }
+.pesce { width: 110px; height: 70px; color: rgba(255, 255, 255, .9); }
+.pesce svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: currentColor; stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; }
+.pesce .pieno { fill: currentColor; fill-opacity: .06; }
+.pesce .squame { stroke-width: .8; opacity: .7; }
+.pesce .occhio { fill: currentColor; stroke: none; }
+.medusa { width: 60px; height: 90px; transform-origin: 30px 36px; }
+.medusa svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: #F4E6CF; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.medusa .pieno { fill: #F4E6CF; fill-opacity: .08; }
+.medusa .riflesso { opacity: .7; }
+.medusa .braccia { opacity: .8; }
+.medusa-cupola { transform-box: view-box; transform-origin: 30px 33px; }
+.medusa-tentacoli { transform-box: view-box; transform-origin: 30px 35px; }
+/* Cavalluccio marino: dritto in verticale, muso verso dove va (home.js lo specchia girandolo); pinna dorsale che vibra */
+.cavalluccio { width: 60px; height: 90px; }
+.cavalluccio svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: #F4E6CF; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.cavalluccio .pieno { fill: #F4E6CF; fill-opacity: .08; }
+.cavalluccio .anelli, .cavalluccio .raggi { stroke-width: .8; opacity: .65; }
+.cavalluccio .occhio { fill: #F4E6CF; stroke: none; }
+.cavalluccio .pinna { transform-box: view-box; transform-origin: 19.5px 45px; animation: pinna .5s ease-in-out infinite alternate; }
+@keyframes pinna { to { transform: scaleX(.72); } }
+/* Polipo (La filosofia): come il cavalluccio, tenue; i tentacoli ondeggiano piano, il mantello respira */
+.polipo { width: 80px; height: 90px; transform-origin: 50% 40%; }
+.polipo svg { display: block; width: 100%; height: 100%; overflow: visible; fill: none; stroke: #F4E6CF; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+.polipo .pieno { fill: #F4E6CF; fill-opacity: .08; }
+.polipo .riflesso { opacity: .7; }
+.polipo .ventose { stroke-width: 1.6; opacity: .7; }
+.polipo .occhio { fill: #F4E6CF; stroke: none; }
+.polipo-tentacoli { transform-box: view-box; transform-origin: 40px 50px; animation: tentacoli-polipo 3.2s ease-in-out infinite alternate; }
+.polipo-mantello { transform-box: view-box; transform-origin: 40px 48px; animation: mantello-polipo 2.6s ease-in-out infinite alternate; }
+@keyframes tentacoli-polipo { from { transform: skewX(-4deg) scaleY(1); } to { transform: skewX(4deg) scaleY(.94); } }
+@keyframes mantello-polipo { to { transform: scale(1.03, .97); } }
+/* Barca a vela sull'onda fra Ricerca e Il locale: la pista finisce sotto la cresta dell'onda davanti, che copre la linea di galleggiamento */
+/* Barca: fra le due onde e dietro la foto che sporge (.contenuto, z-index 3). Si aggancia a qualunque fascia blu con
+   <div class="barca-pista" data-barca aria-hidden="true"></div> come primo figlio della fascia (home.js la riempie con il disegno
+   #barca-disegno, la porta da un bordo all'altro, la posa sull'onda della sua fascia e la fa oscillare). Oggi: Il locale e footer. */
+.barca-pista { position: absolute; left: 0; right: 0; top: -130px; height: 126px; overflow: hidden; z-index: 2; pointer-events: none; }
+/* 13/11 pomeriggio: nelle fasce con la barca, la barca sta FRA le due onde: l'onda dietro (in media 3,5 px più alta) le sta dietro
+   e riempie di blu tutto quello che c'è sotto lo scafo; l'onda davanti le passa davanti e copre o scopre la carena. Le onde
+   non cambiano: cambia solo l'ordine dei livelli (il riquadro dell'onda smette di fare livello a sé). */
+[data-barca] ~ .onda-bordo { z-index: auto; }
+[data-barca] ~ .onda-bordo .onda-dietro { z-index: 1; }
+[data-barca] ~ .onda-bordo .onda-fronte { z-index: 2; }
+.barca-binario { position: absolute; inset: 0; }
+.barca { position: absolute; left: 0; top: 0; width: 130px; height: 91px; transform: translateX(-200px); transform-origin: 50% 92.142857%; }   /* ketch d'epoca; perno al centro della chiglia: x 100, y 129 su 200 × 140 */
+.barca svg { display: block; width: 100%; height: 100%; overflow: visible; stroke-linecap: round; stroke-linejoin: round;  }
+.barca .vela { stroke: rgba(0, 37, 88, .55); stroke-width: .6; }
+.barca .ferzi { fill: none; stroke: rgba(0, 37, 88, .14); stroke-width: .45; }
+.barca .sartiame { fill: none; stroke: var(--blu); stroke-width: .5; }
+.barca .albero { fill: none; stroke: var(--blu); stroke-width: 1.4; }
+.barca .boma { fill: none; stroke: var(--blu); stroke-width: 1.5; }
+.barca .bandiera { fill: var(--arancio); }
+.barca .scafo { fill: var(--blu); }
+.barca .carena { fill: #7A2E1A; }   /* fondo antivegetativa, rosso spento */
+.barca .scafo-filo { fill: none; stroke: #00122E; stroke-width: .8; }
+.barca .filetto { fill: none; stroke: var(--oro); stroke-width: .9; }
+.barca .tuga { fill: var(--bianco); stroke: var(--blu); stroke-width: .5; }
+.barca .oblo-tuga { fill: none; stroke: var(--blu); stroke-width: .4; }
+.pesce-corpo { transform-box: view-box; transform-origin: 34px 20px; animation: ondeggia 1.5s ease-in-out infinite; }
+.pesce-coda { transform-box: view-box; transform-origin: 15px 20px; animation: coda .55s ease-in-out infinite alternate; }
+@keyframes ondeggia { 0%, 100% { transform: rotate(-3deg) translateY(0); } 50% { transform: rotate(3deg) translateY(1px); } }
+@keyframes coda { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+
+/* ---------- Timone fisso, gira e ondeggia (64 px dal round 1; 48 a telefono): al clic apre "Seguici su Instagram" (13/11) ---------- */
+.timone { position: fixed; right: 28px; bottom: 52px; z-index: 50; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 999px; background: transparent; color: var(--arancio); cursor: pointer; animation: galleggia 4s ease-in-out infinite; }
+.timone svg { display: block; width: 100%; height: 100%; animation: gira 16s linear infinite; filter: drop-shadow(0 4px 8px rgba(0, 10, 30, .4)); }
+.timone:hover { color: var(--arancio-scuro); }
+.timone:focus-visible { outline: 2px solid var(--bianco); outline-offset: 4px; box-shadow: 0 0 0 8px var(--blu); }
+/* Link a Instagram accanto al timone, verso sinistra: sempre nel codice, nascosto finché il timone è chiuso (home.js mette aria-expanded) */
+.timone-instagram { position: fixed; right: 104px; bottom: 62px; z-index: 50; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 22px; box-sizing: border-box; border: 1px solid var(--oro); border-radius: 999px; background: var(--blu); color: var(--bianco); font-size: 16px; line-height: 1.2; white-space: nowrap; text-decoration: none; visibility: hidden; opacity: 0; clip-path: inset(0 0 0 100% round 999px); transition: clip-path 300ms var(--curva), opacity 300ms var(--curva), visibility 0s 300ms; }
+.timone[aria-expanded="true"] + .timone-instagram { visibility: visible; opacity: 1; clip-path: inset(-12px round 999px); transition-delay: 0s; }   /* -12px: lascia vedere l'anello del fuoco */
+.timone-instagram:focus-visible { outline: 2px solid var(--bianco); outline-offset: 3px; box-shadow: 0 0 0 7px var(--blu); }
+@keyframes gira { to { transform: rotate(360deg); } }
+@keyframes galleggia { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+/* ---------- Ricerca: il pannello di oggi (misure di sito.css), colori e titoli del sistema nuovo ---------- */
+.ricerca { position: fixed; inset: 0; z-index: 100002; overflow-y: auto; color: var(--blu); font-size: 16px; line-height: 24px; }
+.ricerca[hidden] { display: none; }
+.ricerca h1, .ricerca h2, .ricerca ul { margin: 0; padding: 0; font-weight: 400; }
+.ricerca ul { list-style: none; }
+.ricerca a { text-decoration: none; }
+.ricerca .fk, .ricerca-testi a { font-family: "Cormorant Garamond", serif; font-weight: 500; }
+.ricerca-velo { position: fixed; inset: 0; background: rgba(0, 0, 0, .3); }
+.ricerca-pannello { position: relative; width: 980px; margin: 0 auto; padding: 112px 0 72px; box-sizing: border-box; background: var(--bianco); }
+.ricerca-campo { position: absolute; left: 32px; top: 32px; width: 851.7px; height: 48px; margin: 0; border: 1px solid rgba(0, 37, 88, .7); box-sizing: border-box; background: var(--bianco); }
+.ricerca-lente svg { position: absolute; left: 13px; top: 15.8px; width: 14.4px; height: 14.4px; fill: var(--blu); }
+.ricerca-campo input { position: absolute; left: 34.4px; top: 0; right: 38px; height: 46px; padding: 0; border: 0; outline: 0; background: transparent; font: inherit; font-variation-settings: inherit; font-size: 16px; line-height: 25.6px; color: var(--blu); -webkit-appearance: none; appearance: none; }
+.ricerca-campo input::placeholder { color: var(--blu); opacity: 1; }
+.ricerca-campo:focus-within { outline: 2px solid var(--blu); outline-offset: 3px; }
+.ricerca-campo input::-webkit-search-cancel-button { display: none; }
+.ricerca-svuota { position: absolute; right: 0; top: 0; width: 38px; height: 46px; padding: 0; border: 0; background: transparent; color: var(--blu); cursor: pointer; }
+.ricerca-svuota[hidden] { display: none; }
+.ricerca-svuota svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1; }
+.ricerca-close { position: absolute; left: 907.7px; top: 44px; width: 40.3px; height: 24px; padding: 0; border: 0; background: transparent; font: inherit; font-size: 16px; line-height: 24px; color: var(--blu); cursor: pointer; }
+.ricerca-corpo { padding: 24px 32px 0; }
+.ricerca h2, .ricerca h1 { font-size: 16px; line-height: 24px; }
+.ricerca ul { display: grid; grid-template-columns: repeat(3, 289.4px); gap: 26px 24px; margin-top: 32px; }
+.ricerca-scheda { display: flex; gap: 7.9px; height: 82px; }
+.ricerca-miniatura { flex: 0 0 82px; height: 82px; background: var(--blu); }
+.ricerca-miniatura img { width: 82px; height: 82px; object-fit: cover; }
+.ricerca-testi { min-width: 0; flex: 1; }
+.ricerca-testi a { display: block; padding-left: 2px; overflow: hidden; font-size: 16px; line-height: 24px; white-space: nowrap; text-overflow: ellipsis; }
+.ricerca-desc { display: -webkit-box; margin-top: 8px; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+.ricerca-tutti { display: block; width: 180px; height: 48px; margin-top: 50px; padding: 0; border: 0; background: var(--blu); font: inherit; color: var(--bianco); cursor: pointer; }
+.ricerca-due { display: flex; gap: 16px; }
+.ricerca-suggerimenti { flex: 0 0 245px; }
+.ricerca-suggerimenti h2 { line-height: 22.4px; }
+.ricerca-suggerimenti ol { margin: 32px 0 0; padding: 0; list-style: none; }
+.ricerca-suggerimenti li { height: 28px; margin-bottom: 12px; }
+.ricerca-suggerimenti a { display: block; padding: 2.8px 0 0 2px; overflow: hidden; line-height: 22.4px; white-space: nowrap; text-overflow: ellipsis; }
+.ricerca-due .ricerca-pagine { flex: 0 0 655px; }
+.ricerca-due ul { grid-template-columns: repeat(2, 315.5px); }
+.ricerca-due .ricerca-tutti { margin-top: 48px; }
+.ricerca-vuoto { width: 436.5px; }
+.ricerca mark { background: var(--arancio); color: var(--bianco); }
+.ricerca-aperta { overflow: hidden; }
+
+/* =========================================================
+   Tablet e telefono (< 1024): menu a pannello, hero a due piani
+   ========================================================= */
+@media (max-width: 1023px) {
+  .testata-riga { gap: 8px; }
+  .testata-cerca { margin-left: auto; }
+  .menu-tel-apri { display: flex; flex-direction: column; justify-content: center; gap: 5px; flex: none; width: 44px; height: 44px; padding: 0 11px; box-sizing: border-box; border: 0; background: transparent; cursor: pointer; }
+  .menu-tel-apri span { display: block; height: 2px; border-radius: 2px; background: var(--bianco); transition: transform 300ms var(--curva), opacity 300ms var(--curva); }
+  .menu-aperto .menu-tel-apri span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .menu-aperto .menu-tel-apri span:nth-child(2) { opacity: 0; }
+  .menu-aperto .menu-tel-apri span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav { position: fixed; left: 0; right: 0; top: var(--testata); bottom: 0; flex-direction: column; gap: 8px; margin: 0; padding: 40px 24px; background: var(--blu); font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 28px; letter-spacing: 0; visibility: hidden; opacity: 0; transform: translateY(-8px); transition: opacity 300ms var(--curva), transform 300ms var(--curva), visibility 0s 300ms; }
+  .nav a { align-self: flex-start; }
+  .menu-aperto { overflow: hidden; }
+  .menu-aperto .nav { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+
+  /* Hero (13/11): titolo, linea, frasi e bottone SOPRA la foto, che fa da sfondo ed è alta quanto il testo più 64 px liberi
+     sopra il titolo; velo blu in verticale (pieno dietro il testo, da .90 in basso a .78 all'altezza del titolo, poi a zero
+     verso l'alto; 13/11 pomeriggio: un terzo più leggero, .60 e .52); il riquadro col cappello resta sotto, sul blu. La griglia del computer si apre (display: contents) e
+     foto, velo e testo stanno nella stessa cella. */
+  .hero { display: grid; grid-template-columns: minmax(0, 1fr); height: auto; margin-top: 0; padding-top: 0; }
+  .hero > picture, .hero-velo, .hero-testo { grid-area: 1 / 1; }
+  .hero > picture { display: block; position: relative; }
+  .hero-velo { position: relative; background: linear-gradient(180deg, rgba(0,37,88,0) 0, rgba(0,37,88,.52) 64px, rgba(0,37,88,.60) 100%); }
+  .hero-griglia { display: contents; }
+  .hero-testo { position: relative; z-index: 1; max-width: none; padding: 64px 24px 48px; }
+  .riquadro { grid-row: 2; justify-self: start; width: calc(100% - 48px); max-width: 400px; margin: 48px 24px 96px; }
+
+  .griglia, .griglia-zona { gap: 64px; }
+  .griglia-dx, .griglia-sx, .griglia-zona, .griglia-faq { grid-template-columns: minmax(0, 1fr); }
+  .griglia-dx > .cornice-foto { order: -1; }        /* foto sopra, testo sotto (DESIGN-BRIEF §6) */
+  .cornice-foto { width: 100%; max-width: 440px; }
+  .foto-sporge-sotto, .foto-sporge-sopra { margin: 0; }
+  .s-filosofia .colonna-testo, .s-ricerca .colonna-testo { padding-top: 0; }
+  .s-faq .griglia-faq { gap: 32px; }
+  .rosa-venti { left: -24px; }   /* mappa a tutta larghezza: la rosa non deve uscire dallo schermo */
+
+  .recensione { flex-basis: calc((100% - 24px) / 2); }
+  .rec-riepilogo { align-items: flex-start; }
+
+  .piede-griglia { grid-template-columns: 1fr 1fr; gap: 40px 32px; }
+
+  .ricerca-pannello { width: 320px; }
+  .ricerca-campo { width: 191.7px; }
+  .ricerca-close { left: 247.7px; }
+  .ricerca ul, .ricerca-due ul { grid-template-columns: 256px; }
+  .ricerca-scheda { width: 256px; }
+  .ricerca-due { display: block; }
+  .ricerca-suggerimenti { width: 256px; }
+  .ricerca-due .ricerca-pagine h2 { margin-top: 52px; }
+  .ricerca-due ul { margin-top: 32px; }
+  .ricerca-due .ricerca-tutti { margin-top: 50px; }
+  .ricerca-vuoto { width: 256px; }
+}
+
+/* =========================================================
+   Telefono (< 768): scala tipografica e spazi del telefono (DESIGN-BRIEF §5-6)
+   ========================================================= */
+@media (max-width: 767px) {
+  :root { --testata: 64px; }
+  body { font-size: 16px; }
+  .contenuto { padding: 0 20px; }
+  .h1 { font-size: 36px; }
+  .h2 { font-size: 28px; }
+  .corsivo { font-size: 24px; }
+  .testata-logo img { height: 42px; }
+  .testata-chiama { min-height: 40px; padding: 0 16px; gap: 8px; letter-spacing: .06em; }
+  .hero-frasi { font-size: 17px; }
+  .hero-testo { padding: 64px 20px 40px; }
+  .riquadro { width: calc(100% - 40px); margin: 48px 20px 64px; padding: 40px 24px 32px; }
+  .cappello { width: 190px; }
+  .riquadro-corsivo { font-size: 30px; }
+  .riquadro-maiuscolo { letter-spacing: .16em; }
+  .sezione { padding: 64px 0; }
+  .s-recensioni { padding: 56px 0 48px; }
+  .s-prenota { padding: 24px 0 96px; }
+  .linea-sezione { margin-bottom: 64px; }
+  .griglia, .griglia-zona { gap: 48px; }
+  .cornice-foto { height: auto; aspect-ratio: 440 / 560; max-width: none; width: calc(100% - 16px); margin-left: 8px; }
+  .foto-bassa { aspect-ratio: 440 / 400; }
+  .faq summary { font-size: 21px; }
+  /* Pillole dei comuni (13/11): tre righe da due anche a 360 px, larghe uguali, scritta su una riga; pillola e scritta più piccole, margini interni ridotti */
+  .pillole { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 8px; }
+  .pillola { justify-content: center; gap: 6px; min-height: 40px; padding: 0 8px; font-size: 14px; letter-spacing: .02em; white-space: nowrap; }
+  .mappa iframe { height: 340px; }
+  .recensione { flex-basis: 100%; }
+  .rec-comandi .testo-link { margin-right: auto; }
+  .rec-riepilogo, .rec-comandi { width: 100%; }
+  .rec-voto { flex-wrap: wrap; }
+  .cincin { width: 96px; height: 64px; }
+  .titolo-riga { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .titolo-riga .cincin { order: -1; margin: 0; }
+  .piede { padding: 64px 0 32px; }
+  .piede-griglia { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .copyright { margin-top: 48px; }
+  .timone { right: 16px; bottom: 16px; width: 48px; height: 48px; }
+  .timone-instagram { right: 72px; bottom: 18px; }
+  .s-locale .corsivo-titolo { display: block; text-align: center; }   /* telefono (Gabriele, 16/11): "i tuoi sensi" sulla seconda riga, al centro */
+  .pesce { width: 80px; height: 51px; }
+  .medusa { width: 43px; height: 64px; transform-origin: 21.5px 25.6px; }
+  /* telefono (Gabriele, 13/11 sera): onde alte la metà e lunghe come a computer (largo 600% invece di 200%: una cresta ogni
+     ~146 px invece di 48), così sotto la barca non passano due creste e lo scafo non affonda; stessa velocità in px di prima
+     (durate × 3). stile.js rilegge altezza e larghezza dell'onda e ci posa la barca. */
+  .onda-bordo svg { width: 500%; height: 85%; }
+  .onda-fronte { animation-duration: 52.5s; }
+  .onda-dietro { animation-duration: 75s; }
+  .barca-pista { top: -100px; height: 102px; }   /* finisce sotto l'onda più bassa: lo scafo non viene mai tagliato */
+  .barca { width: 76px; height: 53px; }
+  .cappello-foto { top: -49px; right: -23px; width: 56px; height: 48px; }   /* lo spigolo entra nella fascia verso la sua estremità destra: più a destra uscirebbe dallo schermo */
+  .rosa-venti { top: -30px; left: -20px; width: 44px; height: 44px; }
+  .cavalluccio { width: 43px; height: 64px; }
+  .polipo { width: 57px; height: 64px; }
+  .conchiglia { width: 65px; }
+}
+
+/* ---------- Movimento ridotto: tutto fermo, cappello già disegnato ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .onda-fronte, .onda-dietro, .timone, .timone svg, .cincin .calice-sx, .cincin .calice-dx, .cincin .vino-sx, .cincin .vino-dx, .cincin .scintilla-nuova, .pesce-corpo, .pesce-coda, .cavalluccio .pinna, .polipo-tentacoli, .polipo-mantello { animation: none; }
+  .js .si-disegna:not(.disegnato) .tratto { stroke-opacity: 1; }
+  .js .si-disegna:not(.disegnato) .cappello-pieno, .js .si-disegna:not(.disegnato) .cappello-scritta { opacity: 1; }
+  .ancora-faq, .catena, .recensione, .nav, .menu-tel-apri span, .timone-instagram { transition: none; }
+}

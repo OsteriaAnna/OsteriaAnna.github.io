@@ -1,0 +1,234 @@
+/* Osteria da Anna — componenti delle pagine interne (fasi 2.4 + 2-bis.2, 13/11/2026).
+   Si carica DOPO stile.css, che porta colori, caratteri, fasce, onde, bottoni, navbar, footer, FAQ, pillole e creature.
+   Fonte: PAGE-BRIEF-RANK2.md §6-bis e DESIGN-BRIEF.md §12 (leve L10, L12, L13). Qui non nasce nessun colore nuovo. */
+
+/* ---------- Hero tutta blu (L13): testo a sinistra, foto o riquadro a destra, senza foto di sfondo ---------- */
+.hero-blu { padding: 72px 0 120px; }
+.hero-blu .occhiello { color: var(--oro); }
+.hero-blu .misura { font-size: 19px; line-height: 1.7; }
+/* variante centrata (Il Menu): titolo in mezzo e, sotto, un riquadro leggero con gli angoli tondi */
+.hero-centro { text-align: center; }
+.hero-centro .linea-oro { margin-left: auto; margin-right: auto; }
+.hero-centro .h1 { font-size: clamp(21px, 5.7vw, 52px); }   /* l'H1 del menu resta su due righe anche a 360 px */
+.hero-sottile { padding: 56px 0 72px; }   /* Il Menu: solo l'H1, poi subito il menu */
+.hero-sottile .linea-oro { margin-bottom: 0; }
+
+/* ---------- Hero con foto senza riquadro (Il Locale) e con il riquadro dei contatti (Contatti) ---------- */
+.hero-sfondo { position: absolute; inset: 0; }
+.hero-sola .hero-griglia { grid-template-columns: minmax(0, 1fr); }
+.hero-frasi + .hero-frasi { margin-top: 16px; }
+.hero-contatti .hero-foto { object-position: 50% 18%; }   /* i tavoli bianchi restano sotto il testo, non dietro */
+.riquadro-contatti { padding-top: 40px; text-align: left; }
+.riquadro-contatti .titolo { font-size: 26px; line-height: 1.2; }
+.riquadro-contatti p { margin-top: 12px; font-size: 16px; line-height: 1.5; }
+.riquadro-contatti a { text-decoration: none; }
+.riquadro-contatti a:hover { text-decoration: underline; text-decoration-color: var(--oro); }
+.riquadro-contatti .riquadro-etichetta { margin-top: 22px; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--oro); }
+.riquadro-contatti .piede-icone { position: relative; z-index: 1; margin-top: 12px; }   /* sopra il filo oro interno del riquadro, che non prende i clic */
+.riquadro-contatti .icona-tonda:hover { text-decoration: none; }
+@media (min-width: 1024px) {
+  .riquadro-contatti { padding: clamp(24px, 4.5vh, 40px) 40px clamp(20px, 4vh, 36px); }
+  .riquadro-contatti p { margin-top: clamp(6px, 1.4vh, 12px); }
+  .riquadro-contatti .riquadro-etichetta { margin-top: clamp(10px, 2.4vh, 22px); }
+}
+
+/* ---------- Foto che scorrono (L10): più foto nello stesso riquadro, una alla volta, in dissolvenza (stile.js) ---------- */
+.scorrono { position: relative; width: 100%; height: 100%; }
+.scorrono > * { position: absolute; inset: 0; opacity: 0; transition: opacity 1200ms ease-in-out; }
+.scorrono > .attiva { opacity: 1; }
+.scorrono img { width: 100%; height: 100%; object-fit: cover; }
+.cornice-foto > .scorrono, .hero-sfondo.scorrono { position: absolute; inset: 0; width: auto; height: auto; }
+
+/* Foto che sporge (DESIGN-BRIEF §7) nelle pagine: 48 px oltre il bordo della fascia anche quando il testo accanto è più alto della foto */
+.griglia-centro > .foto-sporge-sotto { align-self: end; }
+.griglia-centro > .foto-sporge-sopra { align-self: start; }
+@media (min-width: 1024px) {
+  .hero-blu .foto-sporge-sotto { margin-bottom: -168px; }   /* la hero blu ha 120 px sotto */
+}
+@media (min-width: 1024px) {
+  .sezione-bassa { padding: 64px 0; }   /* fascia con una foto bassa (Chi Sono, In televisione; Gabriele 13/11) */
+  .sezione-bassa .foto-sporge-sopra { margin-top: -112px; }
+}
+.stretto > .conchiglia { right: 24px; }   /* dentro il margine del contenuto, sulla riga del bottone */
+.colonna-testo.con-conchiglia > p:last-of-type { padding-right: 104px; }   /* l'ultima riga prima del bottone lascia libero il posto dove sale la valva */
+
+/* riquadro orizzontale per le due schermate dell'intervista (Chi Sono) */
+.foto-larga { height: auto; aspect-ratio: 932 / 660; }
+
+/* ---------- Sezioni di solo testo: colonna stretta al centro (chiusa di Chi Sono, vini) ---------- */
+.stretto { max-width: 808px; text-align: center; }
+.stretto .linea-oro { margin-left: auto; margin-right: auto; }
+.stretto .misura { max-width: none; }
+.stretto .bottone { margin-top: 40px; }
+.testo-sx { text-align: left; }
+.testo-sx .linea-oro { margin-left: 0; }
+/* Le tre regioni (Chi Sono): al posto dei fili oro, la catena delle FAQ già scesa, con l'ancora in fondo (fissa) */
+.regioni { position: relative; margin-top: 20px; padding-left: 56px; max-width: 34em; }
+.elenco-regioni { margin: 0; padding: 0; list-style: none; }
+.elenco-regioni li + li { margin-top: 20px; }
+.regioni-catena { position: absolute; left: 14px; top: 4px; bottom: 30px; width: 12px; overflow: hidden; }
+.regioni-catena svg { display: block; width: 12px; height: 100%; }
+.regioni-ancora { position: absolute; left: 0; bottom: 0; width: 40px; height: 40px; }
+.regioni-ancora svg { display: block; width: 40px; height: 40px; fill: none; stroke: var(--oro); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* ---------- Bottiglia di vino bio (La mia Cucina): a destra del titolo dei vini, alta un terzo più dei calici (133 px; 85 a
+   telefono, sopra il titolo come i calici). Disegno e animazione di Design (bottiglia-bio.svg, 13/11): 6 s in ciclo; con
+   movimento ridotto è ferma, dritta e aperta. Sta in piedi sulla riga del titolo e sale nello spazio sopra. ---------- */
+.bottiglia-bio { flex: none; align-self: flex-end; width: 198px; height: 133px; margin: -93px 0 0 -32px; }   /* a sinistra il disegno ha 65 px vuoti */
+.bottiglia-bio svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bottiglia-bio .bottiglia, .bottiglia-bio .tappo, .bottiglia-bio .vino-calice { transform-box: view-box; }
+.bottiglia-bio .bottiglia { transform-origin: 31.92px 19.1px; animation: bottiglia-versa 6s linear infinite; }
+.bottiglia-bio .tappo { transform-origin: 25px 10.8px; animation: bottiglia-tappo 6s linear infinite; }
+.bottiglia-bio .filo-vino { animation: bottiglia-filo 6s linear infinite; }
+.bottiglia-bio .vino-calice { transform-origin: 44.5px 23.6px; animation: bottiglia-vino 6s linear infinite; }
+@keyframes bottiglia-versa { 0% { transform: rotate(0.00deg); } 16.333% { transform: rotate(0.03deg); } 16.917% { transform: rotate(0.27deg); } 17.208% { transform: rotate(0.54deg); } 17.458% { transform: rotate(0.88deg); } 17.708% { transform: rotate(1.31deg); } 17.958% { transform: rotate(1.87deg); } 18.208% { transform: rotate(2.54deg); } 18.417% { transform: rotate(3.20deg); } 18.792% { transform: rotate(4.63deg); } 19.125% { transform: rotate(6.16deg); } 19.458% { transform: rotate(7.95deg); } 19.833% { transform: rotate(10.26deg); } 20.208% { transform: rotate(12.88deg); } 20.583% { transform: rotate(15.82deg); } 20.958% { transform: rotate(19.05deg); } 21.333% { transform: rotate(22.55deg); } 21.667% { transform: rotate(25.87deg); } 22% { transform: rotate(29.37deg); } 22.333% { transform: rotate(33.03deg); } 22.708% { transform: rotate(37.32deg); } 23.417% { transform: rotate(45.77deg); } 24.667% { transform: rotate(61.17deg); } 25.167% { transform: rotate(67.26deg); } 25.667% { transform: rotate(73.17deg); } 26.125% { transform: rotate(78.36deg); } 26.625% { transform: rotate(83.70deg); } 26.875% { transform: rotate(86.23deg); } 27.125% { transform: rotate(88.65deg); } 27.375% { transform: rotate(90.95deg); } 27.583% { transform: rotate(92.78deg); } 27.833% { transform: rotate(94.86deg); } 28.042% { transform: rotate(96.49deg); } 28.292% { transform: rotate(98.32deg); } 28.542% { transform: rotate(100.01deg); } 28.792% { transform: rotate(101.57deg); } 29.042% { transform: rotate(102.98deg); } 29.292% { transform: rotate(104.24deg); } 29.542% { transform: rotate(105.37deg); } 29.792% { transform: rotate(106.36deg); } 30.083% { transform: rotate(107.33deg); } 30.333% { transform: rotate(108.03deg); } 30.625% { transform: rotate(108.69deg); } 30.875% { transform: rotate(109.12deg); } 31.167% { transform: rotate(109.50deg); } 31.458% { transform: rotate(109.76deg); } 31.75% { transform: rotate(109.91deg); } 32.5% { transform: rotate(110.00deg); } 54% { transform: rotate(109.99deg); } 54.542% { transform: rotate(109.82deg); } 55% { transform: rotate(109.39deg); } 55.417% { transform: rotate(108.67deg); } 55.833% { transform: rotate(107.59deg); } 56.208% { transform: rotate(106.26deg); } 56.583% { transform: rotate(104.58deg); } 56.958% { transform: rotate(102.54deg); } 57.292% { transform: rotate(100.40deg); } 57.625% { transform: rotate(97.98deg); } 58% { transform: rotate(94.92deg); } 58.375% { transform: rotate(91.51deg); } 58.75% { transform: rotate(87.78deg); } 59.042% { transform: rotate(84.68deg); } 59.375% { transform: rotate(80.94deg); } 59.708% { transform: rotate(77.01deg); } 60.083% { transform: rotate(72.39deg); } 60.75% { transform: rotate(63.83deg); } 62.292% { transform: rotate(43.46deg); } 62.75% { transform: rotate(37.61deg); } 63.125% { transform: rotate(32.99deg); } 63.542% { transform: rotate(28.11deg); } 63.917% { transform: rotate(23.97deg); } 64.292% { transform: rotate(20.11deg); } 64.667% { transform: rotate(16.56deg); } 65.042% { transform: rotate(13.34deg); } 65.417% { transform: rotate(10.47deg); } 65.792% { transform: rotate(7.97deg); } 66.167% { transform: rotate(5.84deg); } 66.542% { transform: rotate(4.08deg); } 66.917% { transform: rotate(2.67deg); } 67.292% { transform: rotate(1.61deg); } 67.667% { transform: rotate(0.86deg); } 67.958% { transform: rotate(0.46deg); } 68.25% { transform: rotate(0.21deg); } 68.583% { transform: rotate(0.06deg); } 69% { transform: rotate(0.00deg); } 100% { transform: rotate(0.00deg); } }
+@keyframes bottiglia-tappo { 0% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 1.00; } 8.333% { transform: translate(-0.00px, -0.00px) rotate(-0.0deg); opacity: 1.00; } 8.583% { transform: translate(-0.06px, -0.86px) rotate(-1.4deg); opacity: 1.00; } 8.875% { transform: translate(-0.13px, -1.76px) rotate(-3.0deg); opacity: 1.00; } 9.125% { transform: translate(-0.19px, -2.45px) rotate(-4.5deg); opacity: 1.00; } 9.417% { transform: translate(-0.26px, -3.16px) rotate(-6.1deg); opacity: 1.00; } 9.708% { transform: translate(-0.34px, -3.78px) rotate(-7.7deg); opacity: 1.00; } 10% { transform: translate(-0.41px, -4.32px) rotate(-9.4deg); opacity: 1.00; } 10.292% { transform: translate(-0.48px, -4.78px) rotate(-11.0deg); opacity: 1.00; } 10.583% { transform: translate(-0.55px, -5.16px) rotate(-12.7deg); opacity: 1.00; } 11% { transform: translate(-0.65px, -5.60px) rotate(-15.0deg); opacity: 0.99; } 11.292% { transform: translate(-0.72px, -5.83px) rotate(-16.6deg); opacity: 0.95; } 11.583% { transform: translate(-0.79px, -6.02px) rotate(-18.3deg); opacity: 0.85; } 11.875% { transform: translate(-0.86px, -6.16px) rotate(-19.9deg); opacity: 0.70; } 12.208% { transform: translate(-0.94px, -6.27px) rotate(-21.8deg); opacity: 0.49; } 12.542% { transform: translate(-1.03px, -6.34px) rotate(-23.7deg); opacity: 0.29; } 12.875% { transform: translate(-1.11px, -6.38px) rotate(-25.5deg); opacity: 0.13; } 13.042% { transform: translate(-1.15px, -6.39px) rotate(-26.5deg); opacity: 0.07; } 13.25% { transform: translate(-1.20px, -6.40px) rotate(-27.7deg); opacity: 0.02; } 13.667% { transform: translate(-1.30px, -6.40px) rotate(-30.0deg); opacity: 0.00; } 89.125% { transform: translate(-1.30px, -6.40px) rotate(-30.0deg); opacity: 0.00; } 89.167% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.00; } 90.125% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.02; } 90.542% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.06; } 90.958% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.12; } 91.708% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.29; } 93.583% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.78; } 94.125% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.89; } 94.667% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 0.96; } 95.542% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 1.00; } 100% { transform: translate(0.00px, 0.00px) rotate(0.0deg); opacity: 1.00; } }
+@keyframes bottiglia-filo { 0% { stroke-dashoffset: 105.0; } 31.083% { stroke-dashoffset: 104.9; } 31.208% { stroke-dashoffset: 104.2; } 31.375% { stroke-dashoffset: 102.3; } 31.542% { stroke-dashoffset: 99.3; } 31.667% { stroke-dashoffset: 96.4; } 31.833% { stroke-dashoffset: 91.6; } 31.958% { stroke-dashoffset: 87.3; } 32.208% { stroke-dashoffset: 76.8; } 32.458% { stroke-dashoffset: 64.0; } 32.583% { stroke-dashoffset: 56.7; } 32.75% { stroke-dashoffset: 45.9; } 32.875% { stroke-dashoffset: 37.2; } 33.042% { stroke-dashoffset: 24.6; } 33.167% { stroke-dashoffset: 14.5; } 33.333% { stroke-dashoffset: 0.0; } 53.333% { stroke-dashoffset: -0.0; } 53.542% { stroke-dashoffset: -0.8; } 53.792% { stroke-dashoffset: -4.1; } 54.042% { stroke-dashoffset: -9.7; } 54.167% { stroke-dashoffset: -13.4; } 54.333% { stroke-dashoffset: -19.3; } 54.583% { stroke-dashoffset: -30.1; } 54.75% { stroke-dashoffset: -38.7; } 54.875% { stroke-dashoffset: -45.8; } 55.125% { stroke-dashoffset: -61.9; } 55.375% { stroke-dashoffset: -80.4; } 55.542% { stroke-dashoffset: -94.1; } 55.667% { stroke-dashoffset: -105.0; } 99.958% { stroke-dashoffset: -105.0; } 100% { stroke-dashoffset: 105.0; } }
+@keyframes bottiglia-vino { 0% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 0.00; } 31.667% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 0.00; } 32.333% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 1.00; } 33% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 1.00; } 33.042% { transform: translate(0px, 5.29px) rotate(0.00deg); opacity: 1.00; } 33.208% { transform: translate(0px, 5.11px) rotate(0.00deg); opacity: 1.00; } 33.458% { transform: translate(0px, 4.92px) rotate(0.01deg); opacity: 1.00; } 33.75% { transform: translate(0px, 4.75px) rotate(0.04deg); opacity: 1.00; } 34.25% { transform: translate(0px, 4.50px) rotate(0.22deg); opacity: 1.00; } 35.167% { transform: translate(0px, 4.14px) rotate(0.77deg); opacity: 1.00; } 35.417% { transform: translate(0px, 4.05px) rotate(0.84deg); opacity: 1.00; } 35.667% { transform: translate(0px, 3.97px) rotate(0.83deg); opacity: 1.00; } 35.917% { transform: translate(0px, 3.89px) rotate(0.72deg); opacity: 1.00; } 36.208% { transform: translate(0px, 3.79px) rotate(0.48deg); opacity: 1.00; } 37.208% { transform: translate(0px, 3.50px) rotate(-0.73deg); opacity: 1.00; } 37.667% { transform: translate(0px, 3.37px) rotate(-1.18deg); opacity: 1.00; } 38.125% { transform: translate(0px, 3.25px) rotate(-1.45deg); opacity: 1.00; } 38.583% { transform: translate(0px, 3.13px) rotate(-1.49deg); opacity: 1.00; } 39% { transform: translate(0px, 3.03px) rotate(-1.32deg); opacity: 1.00; } 39.417% { transform: translate(0px, 2.93px) rotate(-0.99deg); opacity: 1.00; } 39.833% { transform: translate(0px, 2.83px) rotate(-0.53deg); opacity: 1.00; } 40.792% { transform: translate(0px, 2.61px) rotate(0.68deg); opacity: 1.00; } 41.25% { transform: translate(0px, 2.51px) rotate(1.15deg); opacity: 1.00; } 41.708% { transform: translate(0px, 2.42px) rotate(1.43deg); opacity: 1.00; } 42.167% { transform: translate(0px, 2.32px) rotate(1.49deg); opacity: 1.00; } 42.583% { transform: translate(0px, 2.23px) rotate(1.35deg); opacity: 1.00; } 43.042% { transform: translate(0px, 2.14px) rotate(0.99deg); opacity: 1.00; } 43.458% { transform: translate(0px, 2.06px) rotate(0.52deg); opacity: 1.00; } 44.417% { transform: translate(0px, 1.87px) rotate(-0.69deg); opacity: 1.00; } 44.875% { transform: translate(0px, 1.78px) rotate(-1.15deg); opacity: 1.00; } 45.333% { transform: translate(0px, 1.70px) rotate(-1.43deg); opacity: 1.00; } 45.75% { transform: translate(0px, 1.62px) rotate(-1.50deg); opacity: 1.00; } 46.167% { transform: translate(0px, 1.54px) rotate(-1.37deg); opacity: 1.00; } 46.625% { transform: translate(0px, 1.46px) rotate(-1.03deg); opacity: 1.00; } 47.042% { transform: translate(0px, 1.39px) rotate(-0.57deg); opacity: 1.00; } 48.042% { transform: translate(0px, 1.21px) rotate(0.69deg); opacity: 1.00; } 48.5% { transform: translate(0px, 1.13px) rotate(1.15deg); opacity: 1.00; } 48.958% { transform: translate(0px, 1.06px) rotate(1.43deg); opacity: 1.00; } 49.375% { transform: translate(0px, 0.99px) rotate(1.50deg); opacity: 1.00; } 49.792% { transform: translate(0px, 0.92px) rotate(1.37deg); opacity: 1.00; } 50.25% { transform: translate(0px, 0.84px) rotate(1.02deg); opacity: 1.00; } 50.667% { transform: translate(0px, 0.77px) rotate(0.57deg); opacity: 1.00; } 51.667% { transform: translate(0px, 0.61px) rotate(-0.69deg); opacity: 1.00; } 52.167% { transform: translate(0px, 0.53px) rotate(-1.19deg); opacity: 1.00; } 52.708% { transform: translate(0px, 0.45px) rotate(-1.48deg); opacity: 1.00; } 53.292% { transform: translate(0px, 0.36px) rotate(-1.57deg); opacity: 1.00; } 53.792% { transform: translate(0px, 0.28px) rotate(-1.38deg); opacity: 1.00; } 54.208% { transform: translate(0px, 0.22px) rotate(-0.94deg); opacity: 1.00; } 54.542% { transform: translate(0px, 0.17px) rotate(-0.39deg); opacity: 1.00; } 55.292% { transform: translate(0px, 0.06px) rotate(1.15deg); opacity: 1.00; } 55.667% { transform: translate(0px, 0.00px) rotate(1.80deg); opacity: 1.00; } 55.917% { transform: translate(0px, 0.00px) rotate(2.04deg); opacity: 1.00; } 56.208% { transform: translate(0px, 0.00px) rotate(2.18deg); opacity: 1.00; } 56.5% { transform: translate(0px, 0.00px) rotate(2.17deg); opacity: 1.00; } 56.792% { transform: translate(0px, 0.00px) rotate(2.03deg); opacity: 1.00; } 57.333% { transform: translate(0px, 0.00px) rotate(1.47deg); opacity: 1.00; } 58.417% { transform: translate(0px, 0.00px) rotate(-0.07deg); opacity: 1.00; } 58.875% { transform: translate(0px, 0.00px) rotate(-0.63deg); opacity: 1.00; } 59.375% { transform: translate(0px, 0.00px) rotate(-1.04deg); opacity: 1.00; } 59.875% { transform: translate(0px, 0.00px) rotate(-1.20deg); opacity: 1.00; } 60.292% { transform: translate(0px, 0.00px) rotate(-1.15deg); opacity: 1.00; } 60.708% { transform: translate(0px, 0.00px) rotate(-0.97deg); opacity: 1.00; } 62.125% { transform: translate(0px, 0.00px) rotate(0.10deg); opacity: 1.00; } 62.625% { transform: translate(0px, 0.00px) rotate(0.41deg); opacity: 1.00; } 63.083% { transform: translate(0px, 0.00px) rotate(0.59deg); opacity: 1.00; } 63.5% { transform: translate(0px, 0.00px) rotate(0.66deg); opacity: 1.00; } 64.333% { transform: translate(0px, 0.00px) rotate(0.53deg); opacity: 1.00; } 66.25% { transform: translate(0px, 0.00px) rotate(-0.23deg); opacity: 1.00; } 67.125% { transform: translate(0px, 0.00px) rotate(-0.36deg); opacity: 1.00; } 67.833% { transform: translate(0px, 0.00px) rotate(-0.31deg); opacity: 1.00; } 69.708% { transform: translate(0px, 0.00px) rotate(0.10deg); opacity: 1.00; } 70.708% { transform: translate(0px, 0.00px) rotate(0.20deg); opacity: 1.00; } 74.292% { transform: translate(0px, 0.00px) rotate(-0.11deg); opacity: 1.00; } 77.917% { transform: translate(0px, 0.00px) rotate(0.06deg); opacity: 1.00; } 81.458% { transform: translate(0px, 0.00px) rotate(-0.03deg); opacity: 1.00; } 87.417% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.99; } 88.333% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.94; } 89.208% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.83; } 90% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.68; } 91.917% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.27; } 92.917% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.10; } 93.417% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.05; } 93.958% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.02; } 95.292% { transform: translate(0px, 0.00px) rotate(0.00deg); opacity: 0.00; } 95.333% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 0.00; } 100% { transform: translate(0px, 5.40px) rotate(0.00deg); opacity: 0.00; } }
+@media (prefers-reduced-motion: reduce) {
+  .bottiglia-bio .bottiglia, .bottiglia-bio .tappo, .bottiglia-bio .filo-vino, .bottiglia-bio .vino-calice { animation: none; }
+  .bottiglia-bio .tappo { opacity: 0; }
+}
+
+/* ---------- Prenota un tavolo dopo una fascia blu: con l'onda al posto della linea ---------- */
+.prenota-onda { padding-top: 96px; }
+.titolo-blocco { margin: 0; }
+
+/* ---------- Galleria dei piatti: scorrimento orizzontale, nome sotto ogni foto, foto che si apre ingrandita ---------- */
+.piatti-testa { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px 32px; }
+.piatti-testa .misura { margin-top: 16px; }
+.piatti-comandi { display: flex; gap: 12px; }
+.fascia-blu .freccia { border-color: var(--bianco); color: var(--bianco); }
+.fascia-blu .freccia:hover { border-color: var(--oro); color: var(--blu); }
+.piatti-lista { display: flex; gap: 24px; margin: 40px 0 0; padding: 8px 8px 16px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--oro) transparent; }
+.piatti-lista li { flex: 0 0 264px; scroll-snap-align: start; }
+.piatto-foto { display: block; width: 100%; aspect-ratio: 1; padding: 0; border: 0; background: var(--blu-notte); cursor: zoom-in; outline: 1px solid rgba(184, 152, 88, .9); outline-offset: 7px; margin: 8px 0; width: calc(100% - 16px); margin-left: 8px; }
+.piatto-foto img { width: 100%; height: 100%; object-fit: cover; }
+.piatto-foto:focus-visible { outline: 2px solid var(--anello, var(--blu)); outline-offset: 3px; }
+.piatto-nome { margin-top: 20px; padding: 0 8px; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 21px; line-height: 1.25; }
+
+/* Foto ingrandita: un solo <dialog> per pagina (stile.js) */
+.lente { max-width: none; max-height: none; padding: 0; border: 0; background: transparent; color: var(--bianco); overflow: visible; }
+.lente::backdrop { background: rgba(0, 28, 68, .92); }
+.lente img { display: block; width: auto; height: auto; max-width: min(92vw, 1100px); max-height: calc(92vh - 72px); margin: 0 auto; outline: 1px solid rgba(184, 152, 88, .9); outline-offset: 7px; }
+.lente-nome { margin-top: 24px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 24px; line-height: 1.2; }
+.lente button { position: fixed; display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--bianco); border-radius: 999px; background: rgba(0, 28, 68, .6); color: var(--bianco); cursor: pointer; transition: background-color 150ms ease-out, color 150ms ease-out, border-color 150ms ease-out; }
+.lente button:hover { background: var(--oro); border-color: var(--oro); color: var(--blu); }
+.lente button:focus-visible { outline: 2px solid var(--bianco); outline-offset: 3px; }
+.lente-chiudi { top: 20px; right: 20px; }
+.lente-prec { left: 20px; top: 50%; margin-top: -24px; }
+.lente-succ { right: 20px; top: 50%; margin-top: -24px; }
+.lente[data-sola] .lente-prec, .lente[data-sola] .lente-succ { display: none; }
+
+/* ---------- Il Menu: card lunga (L12) sopra uno sfondo a fasce con le onde ---------- */
+.menu-fondo { position: relative; padding: 72px 0 120px; }
+.menu-fasce { position: absolute; inset: 0; display: grid; grid-template-rows: 1fr 1fr 1fr; }
+.menu-fascia { position: relative; }
+.menu-ingombro { max-width: 808px; }   /* largo quanto la card: stile.js ci misura lo spazio libero ai lati per il pesce */
+.menu-stretto { max-width: 808px; }
+.menu-card { position: relative; padding: 56px 56px 48px; box-sizing: border-box; border: 1px solid rgba(184, 152, 88, .55); background: var(--blu-notte); color: var(--bianco); box-shadow: 0 24px 48px rgba(0, 10, 30, .35); --anello: var(--bianco); }
+.menu-card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 152, 88, .85); pointer-events: none; }
+.menu-logo { display: block; width: 96px; height: auto; margin: 0 auto 8px; }
+.menu-sezione + .menu-sezione { margin-top: 56px; }
+.menu-titolo { margin: 40px 0 8px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: .24em; text-transform: uppercase; color: var(--oro); }
+.menu-titolo::after { content: ""; display: block; width: 64px; height: 1px; margin: 16px auto 0; background: var(--oro); }
+.menu-voci { margin: 24px 0 0; padding: 0; list-style: none; }
+.menu-voce { padding: 12px 0; }
+.menu-nome { display: flex; align-items: baseline; gap: 12px; margin: 0; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 23px; line-height: 1.25; }
+.menu-nome > span:first-child { display: flex; flex: 1; align-items: baseline; gap: 12px; min-width: 0; }
+.menu-nome > span:first-child::after { content: ""; flex: 1; min-width: 16px; border-bottom: 1px dotted rgba(184, 152, 88, .7); }
+.menu-prezzo { flex: none; color: var(--oro); }
+.menu-desc { margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: rgba(255, 255, 255, .86); }
+.menu-note { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(184, 152, 88, .6); text-align: center; font-size: 14px; line-height: 1.5; }
+.menu-note p + p { margin-top: 12px; }
+.menu-coperto { letter-spacing: .12em; }
+
+/* ---------- Il Locale: indicazioni e parcheggi; FAQ su fascia blu ---------- */
+.indicazioni-lista { margin: 0; padding: 0; list-style: none; }
+.indicazioni-lista li { padding: 20px 0; border-bottom: 1px solid rgba(0, 37, 88, .18); }
+.indicazioni-lista li:first-child { padding-top: 4px; }
+.indicazioni-lista strong { display: block; font-family: "Cormorant Garamond", serif; font-variation-settings: normal; font-weight: 500; font-size: 22px; line-height: 1.25; }
+.griglia-pari { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.fascia-blu .faq details { border-bottom-color: rgba(255, 255, 255, .28); }
+.fascia-blu .ancora-faq { --fondo-ancora: var(--blu); }
+
+/* ---------- Pagine di servizio: risultati della ricerca e 404 (contenuto di sempre, veste nuova) ---------- */
+.visivo-nascosto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.cerca-corpo { padding: 72px 0 120px; min-height: 50vh; }
+.cerca-corpo .contenuto { max-width: 988px; }
+.cerca-h1 { margin: 0; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 36px; line-height: 1.15; }
+.cerca-form { position: relative; height: 52px; margin: 40px 0 0; border: 1px solid rgba(0, 37, 88, .6); box-sizing: border-box; background: var(--bianco); }
+.cerca-form .ricerca-lente svg { left: 14px; top: 17px; width: 16px; height: 16px; }
+.cerca-form input { position: absolute; left: 40px; top: 0; right: 40px; height: 50px; padding: 0; border: 0; outline: 0; background: transparent; font: inherit; font-variation-settings: inherit; font-size: 16px; color: var(--blu); -webkit-appearance: none; appearance: none; }
+.cerca-form input::placeholder { color: var(--blu); opacity: 1; }
+.cerca-form input::-webkit-search-cancel-button { display: none; }
+.cerca-form:focus-within { outline: 2px solid var(--blu); outline-offset: 3px; }
+.cerca-svuota { position: absolute; right: 0; top: 0; width: 40px; height: 50px; padding: 0; border: 0; background: transparent; color: var(--blu); cursor: pointer; }
+.cerca-svuota[hidden] { display: none; }
+.cerca-svuota svg { width: 10px; height: 10px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.cerca-stato { margin: 32px 0 0; font-family: inherit; font-weight: 400; font-size: 16px; line-height: 1.5; }
+.cerca-lista { margin: 8px 0 0; padding: 0; list-style: none; }
+.cerca-lista li { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 4px 24px; padding: 24px 0; border-bottom: 1px solid rgba(0, 37, 88, .18); }
+.cerca-miniatura { grid-row: 1 / 3; display: block; background: var(--blu); }
+.cerca-miniatura img { width: 176px; height: 124px; object-fit: cover; }
+.cerca-titolo { align-self: end; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 22px; line-height: 1.25; text-decoration: none; }
+.cerca-titolo:hover { text-decoration: underline; text-decoration-color: var(--oro); text-underline-offset: 4px; }
+.cerca-testo { margin: 0; display: -webkit-box; max-height: 4.5em; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; font-size: 16px; line-height: 1.5; }
+.cerca-lista mark { background: var(--arancio); color: var(--bianco); }
+.errore { padding: 96px 24px 144px; text-align: center; }
+.errore h2 { margin: 0; font-family: inherit; font-weight: 400; font-size: 12px; line-height: 1.3; letter-spacing: .16em; text-transform: uppercase; }
+.errore h1 { margin: 16px 0 0; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 120px; line-height: 1; }
+.errore-testo { margin-top: 16px; }
+.errore-link { display: inline-block; margin-top: 40px; text-decoration: none; }
+.errore-bottone { display: inline-flex; align-items: center; min-height: 44px; padding: 0 24px; border: 1px solid var(--blu); border-radius: 999px; font-size: 16px; letter-spacing: .1em; transition: background-color 150ms ease-out, color 150ms ease-out; }
+.errore-link:hover .errore-bottone { background: var(--blu); color: var(--bianco); }
+.solo-tel { display: none; }
+
+/* =========================================================
+   Tablet e telefono (< 1024)
+   ========================================================= */
+@media (max-width: 1023px) {
+  .hero-blu { padding: 56px 0 96px; }
+  .hero-blu .griglia-dx > .cornice-foto { order: 0; }   /* nella hero blu prima il titolo, poi la foto */
+  .hero > .hero-sfondo { grid-area: 1 / 1; position: relative; }
+  .hero-sola .hero-testo { padding-bottom: 96px; }
+  .griglia-pari { grid-template-columns: minmax(0, 1fr); }
+  .riquadro-contatti { text-align: left; }
+}
+
+/* =========================================================
+   Telefono (< 768)
+   ========================================================= */
+@media (max-width: 767px) {
+  .hero-blu { padding: 40px 0 80px; }
+  .hero-blu .misura { font-size: 17px; }
+  .hero-sottile { padding: 40px 0 56px; }
+  .bottiglia-bio { order: -1; align-self: flex-start; width: 127px; height: 85px; margin: 0 0 0 -28px; }   /* quando versa, il fondo della bottiglia arriva a filo del testo */
+  .colonna-testo.con-conchiglia > p:last-of-type { padding-right: 72px; }
+  .prenota-onda { padding-top: 64px; }
+  .piatti-lista { gap: 16px; margin-top: 32px; }
+  .piatti-lista li { flex-basis: 216px; }
+  .piatto-nome { font-size: 19px; }
+  .lente button { width: 44px; height: 44px; }
+  .lente-chiudi { top: 12px; right: 12px; }
+  .lente-prec { left: 8px; }
+  .lente-succ { right: 8px; }
+  .menu-fondo { padding: 56px 0 96px; }
+  .menu-stretto { padding: 0 12px; }
+  .menu-card { padding: 40px 20px 36px; }
+  .menu-nome { font-size: 20px; gap: 8px; }
+  .menu-nome > span:first-child { gap: 8px; }
+  .menu-titolo { font-size: 19px; letter-spacing: .18em; }
+  .cerca-corpo { padding: 48px 0 96px; }
+  .cerca-h1 { font-size: 28px; }
+  .cerca-lista li { grid-template-columns: 96px minmax(0, 1fr); gap: 4px 16px; }
+  .cerca-miniatura img { width: 96px; height: 68px; }
+  .errore h1 { font-size: 88px; }
+  .solo-pc { display: none; }
+  .solo-tel { display: inline; }
+}
+
+/* ---------- Movimento ridotto: le foto non scorrono (resta la prima) ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .scorrono > * { transition: none; }
+}
