@@ -102,6 +102,10 @@
 .fascia-blu .freccia:hover { border-color: var(--oro); color: var(--blu); }
 .piatti-lista { display: flex; gap: 24px; margin: 40px 0 0; padding: 8px 8px 16px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--oro) transparent; }
 .piatti-lista li { flex: 0 0 264px; scroll-snap-align: start; }
+/* Nastro che gira da solo (stile.js, 20/11/2026): niente aggancio, che lo farebbe scattare; ai due lati una sfumatura
+   leggera (24 px, il bordo resta al 40%; 20/11 Gabriele: più leggera) al posto del taglio netto */
+.piatti-lista[data-gira] { scroll-snap-type: none; -webkit-mask-image: linear-gradient(90deg, rgba(0,0,0,.4), #000 24px, #000 calc(100% - 24px), rgba(0,0,0,.4)); mask-image: linear-gradient(90deg, rgba(0,0,0,.4), #000 24px, #000 calc(100% - 24px), rgba(0,0,0,.4)); }
+.piatti-lista[data-gira] > li { transform: translateX(var(--resto, 0px)); }
 .piatto-foto { display: block; width: 100%; aspect-ratio: 1; padding: 0; border: 0; background: var(--blu-notte); cursor: zoom-in; outline: 1px solid rgba(184, 152, 88, .9); outline-offset: 7px; margin: 8px 0; width: calc(100% - 16px); margin-left: 8px; }
 .piatto-foto img { width: 100%; height: 100%; object-fit: cover; }
 .piatto-foto:focus-visible { outline: 2px solid var(--anello, var(--blu)); outline-offset: 3px; }
@@ -129,6 +133,9 @@
 .menu-card { position: relative; padding: 56px 56px 48px; box-sizing: border-box; border: 1px solid rgba(184, 152, 88, .55); background: var(--blu-notte); color: var(--bianco); box-shadow: 0 24px 48px rgba(0, 10, 30, .35); --anello: var(--bianco); }
 .menu-card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 152, 88, .85); pointer-events: none; }
 .menu-logo { display: block; width: 96px; height: auto; margin: 0 auto 8px; }
+/* Titolo della card (20/11/2026): come quello del percorso, in bianco sulla card blu */
+.menu-carta-titolo { margin: 16px 0 0; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 34px; line-height: 1.15; }
+.menu-carta-titolo::after { content: ""; display: block; width: 64px; height: 1px; margin: 20px auto 0; background: var(--oro); }
 .menu-sezione + .menu-sezione { margin-top: 56px; }
 .menu-titolo { margin: 40px 0 8px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: .24em; text-transform: uppercase; color: var(--oro); }
 .menu-titolo::after { content: ""; display: block; width: 64px; height: 1px; margin: 16px auto 0; background: var(--oro); }
@@ -142,6 +149,23 @@
 .menu-note { margin-top: 48px; padding-top: 28px; border-top: 1px solid rgba(184, 152, 88, .6); text-align: center; font-size: 14px; line-height: 1.5; }
 .menu-note p + p { margin-top: 12px; }
 .menu-coperto { letter-spacing: .12em; }
+/* Percorso degustazione (20/11/2026): la card del menu a colori invertiti, crema e blu, sopra il menu. L'oro solo per filetti e linee:
+   oro su crema è 2,5:1, non regge il testo. Testi secondari in --blu-tenue (7,1:1 sul crema). */
+.percorso-card { position: relative; margin-bottom: 48px; padding: 56px 56px 48px; box-sizing: border-box; border: 1px solid rgba(184, 152, 88, .55); background: var(--crema); color: var(--blu); text-align: center; box-shadow: 0 24px 48px rgba(0, 10, 30, .18); scroll-margin-top: calc(var(--testata) + 24px); }
+.percorso-card::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 152, 88, .85); pointer-events: none; }
+.percorso-stagione { margin: 16px 0 0; font-size: 14px; letter-spacing: .24em; text-transform: uppercase; color: var(--blu-tenue); }
+.percorso-titolo { margin: 12px 0 0; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 34px; line-height: 1.15; }
+.percorso-titolo::after { content: ""; display: block; width: 64px; height: 1px; margin: 20px auto 0; background: var(--oro); }
+.percorso-prezzo { margin: 20px 0 0; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 23px; }
+.percorso-nota { margin: 4px 0 0; font-size: 14px; color: var(--blu-tenue); }
+.percorso-frase { max-width: 520px; margin: 24px auto 0; font-size: 15px; line-height: 1.6; font-style: italic; }
+.percorso-portate { max-width: 560px; margin: 32px auto 0; padding: 0; list-style: none; counter-reset: portata; }
+.percorso-portate li { padding: 14px 0; counter-increment: portata; }
+.percorso-portate li + li { border-top: 1px dotted rgba(184, 152, 88, .7); }
+.percorso-portata { margin: 0; font-family: "Cormorant Garamond", serif; font-weight: 500; font-size: 23px; line-height: 1.25; }
+.percorso-portata::before { content: counter(portata) ". "; }
+.percorso-desc { margin: 6px 0 0; font-size: 15px; line-height: 1.5; color: var(--blu-tenue); }
+.percorso-vini { margin: 32px 0 0; padding-top: 24px; border-top: 1px solid rgba(184, 152, 88, .6); font-size: 15px; line-height: 1.5; }
 
 /* ---------- Il Locale: indicazioni e parcheggi; FAQ su fascia blu ---------- */
 .indicazioni-lista { margin: 0; padding: 0; list-style: none; }
@@ -219,6 +243,9 @@
   .menu-nome { font-size: 20px; gap: 8px; }
   .menu-nome > span:first-child { gap: 8px; }
   .menu-titolo { font-size: 19px; letter-spacing: .18em; }
+  .percorso-card { margin-bottom: 32px; padding: 40px 20px 36px; }
+  .percorso-titolo, .menu-carta-titolo { font-size: 28px; }
+  .percorso-portata, .percorso-prezzo { font-size: 20px; }
   .cerca-corpo { padding: 48px 0 96px; }
   .cerca-h1 { font-size: 28px; }
   .cerca-lista li { grid-template-columns: 96px minmax(0, 1fr); gap: 4px 16px; }

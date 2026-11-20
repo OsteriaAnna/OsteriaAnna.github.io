@@ -470,8 +470,49 @@ document.querySelectorAll('[data-salta]').forEach(function (b) {
   document.querySelectorAll('[data-piatti]').forEach(function (g) {
     var lista = g.querySelector('[data-piatti-lista]');
     var vai = function (verso) { lista.scrollBy({ left: verso * lista.clientWidth * 0.8, behavior: ridotto ? 'auto' : 'smooth' }); };
-    g.querySelector('[data-piatti-prec]').addEventListener('click', function () { vai(-1); });
-    g.querySelector('[data-piatti-succ]').addEventListener('click', function () { vai(1); });
+    g.querySelector('[data-piatti-prec]').addEventListener('click', function () { vai(-1); fermo(); });
+    g.querySelector('[data-piatti-succ]').addEventListener('click', function () { vai(1); fermo(); });
+
+    // 20/11/2026 (Gabriele): il nastro gira da solo, piano e sempre (20 px al secondo), partendo dal piatto con data-inizio.
+    // Per girare senza fine la lista si ripete una volta (copie nascoste a lettori di schermo e tastiera); arrivato in fondo
+    // all'originale torna indietro di una lista intera, e l'occhio non vede il salto. Si ferma sotto il mouse, col fuoco,
+    // mentre si tocca o si scorre a mano e con la foto ingrandita aperta; riparte 3 s dopo. Con "riduci movimento": fermo.
+    var fermo = function () {};
+    if (ridotto || !window.requestAnimationFrame) return;
+    var originali = [].slice.call(lista.children);
+    originali.forEach(function (li) {
+      var c = li.cloneNode(true);
+      c.setAttribute('data-copia', ''); c.setAttribute('aria-hidden', 'true');
+      c.querySelectorAll('button, a').forEach(function (b) { b.tabIndex = -1; });
+      lista.appendChild(c);
+    });
+    lista.setAttribute('data-gira', '');
+    var giro = function () { return lista.children[originali.length].offsetLeft - originali[0].offsetLeft; };
+    var inizio = lista.querySelector('[data-inizio]');
+    var pos = inizio ? inizio.offsetLeft - originali[0].offsetLeft : 0, prima = 0, sopra = false, ripartenza = 0;
+    lista.scrollLeft = pos;
+    fermo = function () { ripartenza = performance.now() + 3000; };
+    lista.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') sopra = true; });
+    lista.addEventListener('pointerleave', function () { sopra = false; });
+    ['pointerdown', 'wheel', 'touchmove', 'focusin'].forEach(function (t) { lista.addEventListener(t, fermo, { passive: true }); });
+    // Gira dall'apertura della pagina, anche fuori schermo. Lo scorrimento del browser va a pixel interi e a 20 px/s
+    // scatterebbe: la parte decimale la fa una traslazione dei piatti (--resto), così il moto è continuo.
+    var passo = function (ora) {
+      var dt = prima ? Math.min(ora - prima, 100) : 0; prima = ora;
+      var aperta = document.querySelector('dialog[open]');
+      if (sopra || aperta || ora < ripartenza || document.activeElement && lista.contains(document.activeElement)) {
+        pos = lista.scrollLeft;   // riparte da dove l'ha lasciata la mano
+        lista.style.setProperty('--resto', '0px');
+      } else {
+        var g2 = giro();
+        pos += dt * 0.02;
+        if (pos >= g2) pos -= g2;
+        lista.scrollLeft = pos;
+        lista.style.setProperty('--resto', (lista.scrollLeft - pos).toFixed(3) + 'px');
+      }
+      requestAnimationFrame(passo);
+    };
+    requestAnimationFrame(passo);
   });
 
   // Foto ingrandita: ogni bottone con data-grande apre la sua foto nel <dialog data-lente> della pagina, con il nome
@@ -486,9 +527,12 @@ document.querySelectorAll('[data-salta]').forEach(function (b) {
     };
     document.querySelectorAll('[data-grande]').forEach(function (b) {
       b.addEventListener('click', function () {
-        gruppo = [].slice.call((b.closest('[data-gruppo]') || document).querySelectorAll('[data-grande]'));
+        // le copie del nastro (data-copia) non contano: una copia apre la foto del suo originale
+        gruppo = [].filter.call((b.closest('[data-gruppo]') || document).querySelectorAll('[data-grande]'), function (x) { return !x.closest('[data-copia]'); });
         lente.toggleAttribute('data-sola', gruppo.length < 2);
-        apriFoto(gruppo.indexOf(b)); lente.showModal();
+        var i = gruppo.indexOf(b);
+        if (i < 0) i = gruppo.findIndex(function (x) { return x.getAttribute('data-grande') === b.getAttribute('data-grande'); });
+        apriFoto(i); lente.showModal();
       });
     });
     lente.querySelector('[data-lente-prec]').addEventListener('click', function () { apriFoto(quale - 1); });
@@ -545,7 +589,7 @@ document.querySelectorAll('[data-salta]').forEach(function (b) {
 
   // A telefono (13/11): niente strisce. Ogni animale ha la sua fetta di fascia e ci nuota dentro, anche SOTTO i testi
   // (l'acquario sta sotto il contenuto), ma mai dietro foto, bottoni, pillole, mappe e riquadri: sono ostacoli pieni.
-  var OSTACOLI = '.cornice-foto, .bottone, .mappa, .pillole, .riquadro, .menu-card, .piatti, .indicazioni-lista';
+  var OSTACOLI = '.cornice-foto, .bottone, .mappa, .pillole, .riquadro, .menu-card, .percorso-card, .piatti, .indicazioni-lista';
   var tocca = function (c, x, y) {   // quanto il corpo (cerchio di raggio c.rag) entra nell'ostacolo più vicino; 0 = libero
     var m = 0;
     c.ost.forEach(function (R) { var d = Math.hypot(Math.max(R[0] - x, 0, x - R[1]), Math.max(R[2] - y, 0, y - R[3])); if (d < c.rag) m = Math.max(m, c.rag - d); });
@@ -576,7 +620,7 @@ document.querySelectorAll('[data-salta]').forEach(function (b) {
 
   var misura = function () {
     W = document.documentElement.clientWidth; altoTestata = testata ? testata.offsetHeight : 0;
-    foto = [].map.call(document.querySelectorAll('.cornice-foto, .mappa, .menu-card, .piatti-lista'), function (e) { var r = e.getBoundingClientRect(); return [r.left - 8, r.right + 8, r.top + scrollY - 8, r.bottom + scrollY + 8]; });   // + la cornice oro (7 px fuori)
+    foto = [].map.call(document.querySelectorAll('.cornice-foto, .mappa, .menu-card, .percorso-card, .piatti-lista'), function (e) { var r = e.getBoundingClientRect(); return [r.left - 8, r.right + 8, r.top + scrollY - 8, r.bottom + scrollY + 8]; });   // + la cornice oro (7 px fuori)
     pesci.forEach(function (f) {
       f.top = cima(f.s); f.h = f.s.offsetHeight; f.w2 = f.n.offsetWidth / 2; f.h2 = f.n.offsetHeight / 2;
       if (f.da) f.daFine = cima(f.da) + f.da.offsetHeight;

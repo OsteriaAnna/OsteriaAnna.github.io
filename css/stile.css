@@ -61,6 +61,9 @@ a { color: inherit; }
 .secondario { background: transparent; border-color: currentColor; }
 .fascia-blu .secondario:hover { background: var(--bianco); color: var(--blu); }
 .fascia-bianca .secondario:hover { background: var(--blu); border-color: var(--blu); color: var(--bianco); }
+/* Percorso degustazione (versione A scelta da Gabriele, 20/11/2026): contorno oro, testo crema; al passaggio oro pieno, testo blu (5,4:1) */
+.percorso { background: transparent; border-color: var(--oro); color: var(--crema); }
+.percorso:hover { background: var(--oro); color: var(--blu); }
 
 /* ---------- Onde fra le fasce (due onde sovrapposte in sensi opposti; 13/11: ampiezza +25% nei tracciati di index.html, velocità +20%: 26 → 21 s, 38 → 30 s) ---------- */
 .onda-bordo { position: absolute; left: 0; right: 0; top: -27px; height: 28px; overflow: hidden; z-index: 2; pointer-events: none; }
@@ -91,7 +94,7 @@ a { color: inherit; }
 .hero-griglia { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 64px; align-items: center; height: 100%; }
 .hero-testo { max-width: 560px; }
 .hero-frasi { font-size: 19px; line-height: 1.7; }
-.hero-testo .bottone { margin-top: 36px; }
+.hero-bottoni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
 .riquadro { position: relative; padding: 48px 40px 40px; box-sizing: border-box; text-align: center; border: 1px solid rgba(184, 152, 88, .55); background: rgba(0, 30, 72, .84); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); box-shadow: 0 24px 48px rgba(0, 10, 30, .35); }
 .riquadro::after { content: ""; position: absolute; inset: 8px; border: 1px solid rgba(184, 152, 88, .85); pointer-events: none; }
 .riquadro-corsivo { margin-top: 28px; font-family: "Parisienne", cursive; font-size: 34px; line-height: 1.25; color: var(--crema); }
