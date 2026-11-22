@@ -61,9 +61,6 @@ a { color: inherit; }
 .secondario { background: transparent; border-color: currentColor; }
 .fascia-blu .secondario:hover { background: var(--bianco); color: var(--blu); }
 .fascia-bianca .secondario:hover { background: var(--blu); border-color: var(--blu); color: var(--bianco); }
-/* Percorso degustazione (versione A scelta da Gabriele, 20/11/2026): contorno oro, testo crema; al passaggio oro pieno, testo blu (5,4:1) */
-.percorso { background: transparent; border-color: var(--oro); color: var(--crema); }
-.percorso:hover { background: var(--oro); color: var(--blu); }
 
 /* ---------- Onde fra le fasce (due onde sovrapposte in sensi opposti; 13/11: ampiezza +25% nei tracciati di index.html, velocità +20%: 26 → 21 s, 38 → 30 s) ---------- */
 .onda-bordo { position: absolute; left: 0; right: 0; top: -27px; height: 28px; overflow: hidden; z-index: 2; pointer-events: none; }
