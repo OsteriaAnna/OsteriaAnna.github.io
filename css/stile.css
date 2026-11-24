@@ -163,7 +163,6 @@ a { color: inherit; }
 .recensione-testo { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-line; font-size: 15.5px; line-height: 1.55; }
 .recensione-firma { margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(184, 152, 88, .6); font-size: 14px; color: var(--blu-tenue); }
 .recensione-firma strong { color: var(--blu); }
-.rec-nota { margin-top: 16px; font-size: 14px; color: var(--blu-tenue); }
 
 /* ---------- 6. Dove siamo ---------- */
 .griglia-zona { grid-template-columns: minmax(0, 1fr) 560px; gap: 80px; }
