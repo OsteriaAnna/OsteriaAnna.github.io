@@ -163,6 +163,7 @@ a { color: inherit; }
 .recensione-testo { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-line; font-size: 15.5px; line-height: 1.55; }
 .recensione-firma { margin-top: auto; padding-top: 10px; border-top: 1px solid rgba(184, 152, 88, .6); font-size: 14px; color: var(--blu-tenue); }
 .recensione-firma strong { color: var(--blu); }
+.rec-nota { margin-top: 16px; font-size: 14px; color: var(--blu-tenue); }
 
 /* ---------- 6. Dove siamo ---------- */
 .griglia-zona { grid-template-columns: minmax(0, 1fr) 560px; gap: 80px; }
@@ -173,6 +174,17 @@ a { color: inherit; }
    copre la rosa dei venti, che sta sotto l'angolo in alto a sinistra e si vede solo fuori dalla cornice */
 .mappa { position: relative; box-shadow: 0 0 0 7px var(--blu), 0 0 0 8px rgba(184, 152, 88, .9); }
 .mappa iframe { width: 100%; height: 420px; border: 0; }
+/* Mappa ferma (24/11/2026): immagine nostra (dati OpenStreetMap) al posto dell'iframe, che parte solo al clic (stile.js).
+   Stesso centro e stesso zoom di Google, mai ridimensionata: al clic l'inquadratura resta quella.
+   [hidden] va ripetuto perché "iframe { display: block }" della base vince sull'attributo */
+.mappa iframe[hidden], .mappa-ferma[hidden] { display: none; }
+.mappa-ferma { position: relative; height: 420px; }
+.mappa-immagine { position: absolute; inset: 0; width: 100%; padding: 0; overflow: hidden; border: 0; background: var(--blu-notte); font: inherit; cursor: pointer; }
+.mappa-immagine img { position: absolute; left: 50%; top: 50%; width: 1000px; height: 420px; max-width: none; margin: -210px 0 0 -500px; }
+.mappa-immagine .bottone { position: absolute; left: 12px; bottom: 30px; min-height: 34px; padding: 0 16px; font-size: 13px; letter-spacing: .04em; }
+.mappa-immagine:hover .bottone { background: var(--arancio-scuro); border-color: var(--arancio-scuro); }
+.mappa-immagine:focus-visible { outline-offset: -4px; }   /* dentro: fuori c'è la cornice */
+.mappa-ferma p { position: absolute; left: 0; right: 0; bottom: 0; padding: 2px 6px; background: rgba(255, 255, 255, .85); color: var(--blu); font-size: 9px; line-height: 1.4; }
 
 /* ---------- 7. Domande frequenti: <details>, ancora che scende con la catena ---------- */
 .griglia-faq { grid-template-columns: 360px minmax(0, 1fr); }
@@ -239,6 +251,11 @@ a { color: inherit; }
 .piede-nap a:hover { text-decoration: underline; text-decoration-color: var(--oro); }
 .piede-orari p + p { margin-top: 0; }
 .copyright { margin-top: 64px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, .18); font-size: 14px; color: rgba(255, 255, 255, .8); }
+
+/* ---------- Testo della cookie policy (24/11/2026) ---------- */
+.testo-legale h2 { margin-top: 40px; }
+.testo-legale h2:first-child { margin-top: 0; }
+.testo-legale p { margin-top: 12px; }
 
 /* ---------- Icone animate (una classe per icona, posizione per sezione) ---------- */
 .deco { position: absolute; z-index: 1; pointer-events: none; }
@@ -465,6 +482,8 @@ a { color: inherit; }
   .pillole { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 8px; }
   .pillola { justify-content: center; gap: 6px; min-height: 40px; padding: 0 8px; font-size: 14px; letter-spacing: .02em; white-space: nowrap; }
   .mappa iframe { height: 340px; }
+  .mappa-ferma { height: 340px; }
+  .mappa-immagine .bottone { bottom: 42px; }
   .recensione { flex-basis: 100%; }
   .rec-comandi .testo-link { margin-right: auto; }
   .rec-riepilogo, .rec-comandi { width: 100%; }

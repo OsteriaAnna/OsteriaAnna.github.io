@@ -1060,3 +1060,15 @@ document.querySelectorAll('[data-salta]').forEach(function (b) {
   if ('ResizeObserver' in window) new ResizeObserver(rimisura).observe(document.body);
   else addEventListener('resize', rimisura);
 })();
+
+// Mappa di Google (24/11/2026): parte solo al clic sul disegno. La scelta non si salva: a ogni pagina si riparte dal
+// disegno. Senza script resta il disegno con il link a Google Maps.
+document.querySelectorAll('[data-mappa]').forEach(function (m) {
+  var f = m.querySelector('iframe');
+  m.querySelector('[data-mappa-mostra]').addEventListener('click', function () {
+    f.hidden = false;
+    m.querySelector('[data-mappa-ferma]').hidden = true;
+    f.src = f.getAttribute('data-src');
+    f.focus();
+  });
+});
